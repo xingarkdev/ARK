@@ -8404,7 +8404,6 @@ bool ImGui::selection(const char* label, ImTextureID user_texture_id, bool selec
     //int active_anim = animate(label, "active_anim", selected, 155, 16, STATIC);
 
     window->DrawList->AddImage(user_texture_id, rect.Min + ImVec2(15, 15), rect.Max - ImVec2(15, 15), ImVec2(0, 0), ImVec2(1, 1), ImColor(255, 255, 255, 100 + it_anim->second.hovered_anim + it_anim->second.active_anim));
-
     return pressed;
 }
 

@@ -1,8 +1,10 @@
 #include <wtypes.h>
+extern void InitMenu();
 extern void InitCheat();
 
 void InitThread()
 {
+    InitMenu();
     InitCheat();
 }
 
