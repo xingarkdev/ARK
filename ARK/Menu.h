@@ -1,2 +1,4 @@
 #pragma once
-int accent_color[4] = { 130, 34, 35, 255 };
+int accent_color[4] = { 103, 0, 163, 255 };
+
+void InitCheat();

@@ -1,15 +1,24 @@
-#include "pch.h"
+#include <wtypes.h>
+extern void InitCheat();
 
-// - C++ Exceptions are /EHa (Yes with SEH Exceptions)
-
-BOOL APIENTRY DllMain(HMODULE hModule, DWORD ulReasonForCall, LPVOID lpReserved)
+void InitThread()
 {
-	DisableThreadLibraryCalls(hModule);
+    InitCheat();
+}
 
-	if (ulReasonForCall != DLL_PROCESS_ATTACH)
-		return TRUE;
-
-	// TODO: Fill your code here
-
-	return TRUE;
+BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
+{
+    switch (ul_reason_for_call)
+    {
+    case DLL_PROCESS_ATTACH:
+    {
+        CloseHandle(CreateThread(0, 0, (LPTHREAD_START_ROUTINE)InitThread, 0, 0, 0));
+        break;
+    }
+    case DLL_THREAD_ATTACH:
+    case DLL_THREAD_DETACH:
+    case DLL_PROCESS_DETACH:
+        break;
+    }
+    return TRUE;
 }
