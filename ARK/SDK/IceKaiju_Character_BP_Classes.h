@@ -891,7 +891,7 @@ namespace CG
 		bool BPCanTargetCorpse();
 		void ExposeChestNode(bool Hide);
 		void DestroyRightShoulderNode();
-		void RightLegNodeDestroyed();
+		//void RightLegNodeDestroyed();
 		void HideLegNodes();
 		void ExposeLegNodes(bool Hide, bool RightLeg);
 		void BPDoAttack(int32_t AttackIndex);

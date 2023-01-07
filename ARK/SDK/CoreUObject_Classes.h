@@ -240,7 +240,7 @@ namespace CG
 	class UFunction : public UStruct
 	{
 	public:
-		uint                                                       FunctionFlags;                                           // 0x0090(0x0004) PRE-DEFINED PROPERTY
+		unsigned int                                                       FunctionFlags;                                           // 0x0090(0x0004) PRE-DEFINED PROPERTY
 		uint16_t                                                   RepOffset;                                               // 0x0094(0x0002) PRE-DEFINED PROPERTY
 		unsigned char                                              pad_G1IFVTF2XN[0x1];                                     // 0x0096(0x0001) PRE-DEFINED PROPERTY
 		unsigned char                                              pad_3ZQ5LQEO0X[0x1];                                     // 0x0097(0x0001) PRE-DEFINED PROPERTY

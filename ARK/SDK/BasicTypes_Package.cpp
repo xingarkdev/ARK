@@ -135,7 +135,7 @@ namespace CG
 	 */
 	bool FUObjectItem::IsUnreachable() const
 	{
-		return !!(Flags & static_cast<std::underlying_type_t<ObjectFlags>>(ObjectFlags::Unreachable));
+		return !!(static_cast<std::underlying_type_t<ObjectFlags>>(ObjectFlags::Unreachable));
 	}
 
 	/**
@@ -146,7 +146,7 @@ namespace CG
 	 */
 	bool FUObjectItem::IsPendingKill() const
 	{
-		return !!(Flags & static_cast<std::underlying_type_t<ObjectFlags>>(ObjectFlags::PendingKill));
+		return !!(static_cast<std::underlying_type_t<ObjectFlags>>(ObjectFlags::PendingKill));
 	}
 
 	/**

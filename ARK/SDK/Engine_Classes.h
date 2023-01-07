@@ -7993,25 +7993,25 @@ namespace CG
 		unsigned char                                              UnknownData_X7HB[0x50];                                  // 0x0040(0x0050) MISSED OFFSET (PADDING)
 
 	public:
-		std::vector<FName> GetRowNames() const;
-		template<class T>
-		inline T* FindRow(const CG::FName& rowName) const
-		{
-			for (int32_t i = 0; i < RowMap.Data.Count(); ++i)
-			{
-				CG::TPair<CG::FName, unsigned char*> curRowPair = RowMap.Data[i].Value;
-				CG::FName& curRowName = curRowPair.First;
-				if (curRowName.ComparisonIndex == rowName.ComparisonIndex && curRowName.Number == rowName.Number)
-				{
-					#ifdef FNAME_POOL_WITH_CASE_PRESERVING_NAME
-					if (curRowName.DisplayIndex == rowName.DisplayIndex)
-					#endif
-						return reinterpret_cast<T*>(curRowPair.Second);
-				}
-			}
-			
-			return nullptr;
-		}
+		//std::vector<FName> GetRowNames() const;
+		//template<class T>
+		//inline T* FindRow(const CG::FName& rowName) const
+		//{
+		//	for (int32_t i = 0; i < RowMap.Data.Count(); ++i)
+		//	{
+		//		CG::TPair<CG::FName, unsigned char*> curRowPair = RowMap.Data[i].Value;
+		//		CG::FName& curRowName = curRowPair.First;
+		//		if (curRowName.ComparisonIndex == rowName.ComparisonIndex && curRowName.Number == rowName.Number)
+		//		{
+		//			#ifdef FNAME_POOL_WITH_CASE_PRESERVING_NAME
+		//			if (curRowName.DisplayIndex == rowName.DisplayIndex)
+		//			#endif
+		//				return reinterpret_cast<T*>(curRowPair.Second);
+		//		}
+		//	}
+		//	
+		//	return nullptr;
+		//}
 
 		static UClass* StaticClass();
 	};
