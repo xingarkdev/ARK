@@ -40,7 +40,7 @@ void RenderMenu()
 {
 	ImGuiStyle& style = ImGui::GetStyle();
 
-	//this part crashes, it should load the images stored as a byte array as a d3d texture, will likely try to load images from a file on disk instead of byte array anyway
+	//this part crashes, it should load the images stored as a byte array as a d3d texture
 	//as a result the tabs are invisible, but can still be clicked
 
 	/*if (legit_image == nullptr)D3DXCreateTextureFromFileInMemoryEx((LPDIRECT3DDEVICE9)D3D.Device
