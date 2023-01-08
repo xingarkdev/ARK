@@ -36,7 +36,6 @@ void MainThread()
 	Data.pCtr = reinterpret_cast<CG::AShooterPlayerController*>(pWorld->OwningGameInstance->LocalPlayers[0]->PlayerController);
 	if (Data.pCtr && !Data.pHud) { Data.pHud = Data.pCtr->GetHUD(); };
 	if (!Data.pHud || !Data.pCtr || !Data.drawCanvas) return;
-
 	//player loop
 	gameplayStatics->STATIC_GetAllActorsOfClass(pWorld, CG::AShooterCharacter::StaticClass(), &Data.primalChars);
 	for (int p = 0; p < Data.primalChars.Count(); ++p)
@@ -47,8 +46,7 @@ void MainThread()
 		CG::FVector2D PlayerScreenLocation{};
 
 		if (player->IsLocallyControlled()) Data.localPlayer = player;
-		//w2s func crashes!!!!
-		else if (Data.pCtr->ProjectWorldLocationToScreen(player->RootComponent->GetWorldLocation(), &PlayerScreenLocation))
+		else if (Data.pCtr->PlayerCameraManager && W2S(player->RootComponent->GetWorldLocation(), PlayerScreenLocation))
 		{
 			if (Data.Settings.playerESP)
 			{
@@ -67,11 +65,11 @@ void MainThread()
 				//else DrawTextWithShadow(canvas, Data.defaultFont, CG::FString(L"No Tribe"), { PlayerScreenLocation.X,PlayerScreenLocation.Y + 15 }, renderColor, 1.0f, Data.Settings.shadowColor, { 1, 1 }, true, true, true, Data.Settings.shadowColor);
 
 				//weight
-				Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, CG::FString((std::to_wstring((int)player->ReplicatedWeight) + L" Weight"s).c_str()), { PlayerScreenLocation.X,PlayerScreenLocation.Y + 15 }, renderColor, 1.0f, Data.Settings.shadowColor, { 1, 1 }, true, true, true, Data.Settings.shadowColor));
+				//Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, (std::to_wstring((int)player->ReplicatedWeight) + L" Weight"s).c_str() , {PlayerScreenLocation.X,PlayerScreenLocation.Y + 20}, renderColor, 1.0f, Data.Settings.shadowColor, {1, 1}, true, true, true, Data.Settings.shadowColor));
 
 				//hp bar
-				//Data.DrawLineQueue.push_back(DrawLineData({ PlayerScreenLocation.X - 20, PlayerScreenLocation.Y + 30 }, { PlayerScreenLocation.X + 20, PlayerScreenLocation.Y + 30 }, 10.f, { 255, 0, 0, 255 }));
-				//Data.DrawLineQueue.push_back(DrawLineData({ PlayerScreenLocation.X - 20, PlayerScreenLocation.Y + 30 }, { (PlayerScreenLocation.X - 20) + (player->GetHealthPercentage() * 40), PlayerScreenLocation.Y + 30 }, 10.f, { 0, 255, 0, 255 }));
+				Data.DrawLineQueue.push_back(DrawLineData({ PlayerScreenLocation.X - 20, PlayerScreenLocation.Y + 35 }, { PlayerScreenLocation.X + 20, PlayerScreenLocation.Y + 35 }, 10.f, { 255, 0, 0, 255 }));
+				Data.DrawLineQueue.push_back(DrawLineData({ PlayerScreenLocation.X - 20, PlayerScreenLocation.Y + 35 }, { (PlayerScreenLocation.X - 20) + (player->GetHealthPercentage() * 40), PlayerScreenLocation.Y + 35 }, 10.f, { 0, 255, 0, 255 }));
 			}
 		}
 	}

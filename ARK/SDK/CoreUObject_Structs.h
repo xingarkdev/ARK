@@ -293,6 +293,45 @@ namespace CG
 
 			return (X * v.X + Y * v.Y + Z * v.Z);
 		}
+		FVector operator+(const FVector& other) const { return FVector(X + other.X, Y + other.Y, Z + other.Z); }
+
+		FVector operator-(const FVector& other) const { return FVector(X - other.X, Y - other.Y, Z - other.Z); }
+
+		FVector operator*(const FVector& V) const { return FVector(X * V.X, Y * V.Y, Z * V.Z); }
+
+		FVector operator/(const FVector& V) const { return FVector(X / V.X, Y / V.Y, Z / V.Z); }
+
+		bool operator==(const FVector& V) const { return X == V.X && Y == V.Y && Z == V.Z; }
+
+		bool operator!=(const FVector& V) const { return X != V.X || Y != V.Y || Z != V.Z; }
+
+		FVector operator-() const { return FVector(-X, -Y, -Z); }
+
+		FVector operator+(float Bias) const { return FVector(X + Bias, Y + Bias, Z + Bias); }
+
+		FVector operator-(float Bias) const { return FVector(X - Bias, Y - Bias, Z - Bias); }
+
+		FVector operator*(float Scale) const { return FVector(X * Scale, Y * Scale, Z * Scale); } const
+
+			FVector operator/(float Scale) const { const float RScale = 1.f / Scale; return FVector(X * RScale, Y * RScale, Z * RScale); }
+
+		FVector operator=(const FVector& V) { X = V.X; Y = V.Y; Z = V.Z; return *this; }
+
+		FVector operator+=(const FVector& V) { X += V.X; Y += V.Y; Z += V.Z; return *this; }
+
+		FVector operator-=(const FVector& V) { X -= V.X; Y -= V.Y; Z -= V.Z; return *this; }
+
+		FVector operator*=(const FVector& V) { X *= V.X; Y *= V.Y; Z *= V.Z; return *this; }
+
+		FVector operator/=(const FVector& V) { X /= V.X; Y /= V.Y; Z /= V.Z; return *this; }
+
+		FVector operator*=(float Scale) { X *= Scale; Y *= Scale; Z *= Scale; return *this; }
+
+		FVector operator/=(float V) { const float RV = 1.f / V; X *= RV; Y *= RV; Z *= RV; return *this; }
+
+		float operator|(const FVector& V) const { return X * V.X + Y * V.Y + Z * V.Z; }
+
+		FVector operator^(const FVector& V) const { return FVector(Y * V.Z - Z * V.Y, Z * V.X - X * V.Z, X * V.Y - Y * V.X); }
 	};
 
 	/**
