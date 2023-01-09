@@ -36,6 +36,8 @@ void MainThread()
 	Data.pCtr = reinterpret_cast<CG::AShooterPlayerController*>(pWorld->OwningGameInstance->LocalPlayers[0]->PlayerController);
 	if (Data.pCtr && !Data.pHud) { Data.pHud = Data.pCtr->GetHUD(); };
 	if (!Data.pHud || !Data.pCtr || !Data.drawCanvas) return;
+	//Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, str1, {500, 500}, {1, 0, 0, 1}, 1.0f, Data.Settings.shadowColor, {1, 1}, true, true, true, Data.Settings.shadowColor));
+
 	//player loop
 	gameplayStatics->STATIC_GetAllActorsOfClass(pWorld, CG::AShooterCharacter::StaticClass(), &Data.primalChars);
 	for (int p = 0; p < Data.primalChars.Count(); ++p)
@@ -65,11 +67,15 @@ void MainThread()
 				//else DrawTextWithShadow(canvas, Data.defaultFont, CG::FString(L"No Tribe"), { PlayerScreenLocation.X,PlayerScreenLocation.Y + 15 }, renderColor, 1.0f, Data.Settings.shadowColor, { 1, 1 }, true, true, true, Data.Settings.shadowColor);
 
 				//weight
-				//Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, (std::to_wstring((int)player->ReplicatedWeight) + L" Weight"s).c_str() , {PlayerScreenLocation.X,PlayerScreenLocation.Y + 20}, renderColor, 1.0f, Data.Settings.shadowColor, {1, 1}, true, true, true, Data.Settings.shadowColor));
+				wchar_t str1[32];
+				wchar_t* str = (wchar_t*)L" Weight";
+				_itow((int)player->ReplicatedWeight, str1, 10);
+				wcscat(str1, str);
+				Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, str1, {PlayerScreenLocation.X,PlayerScreenLocation.Y + 20}, renderColor, 1.0f, Data.Settings.shadowColor, {1, 1}, true, true, true, Data.Settings.shadowColor));
 
 				//hp bar
-				Data.DrawLineQueue.push_back(DrawLineData({ PlayerScreenLocation.X - 20, PlayerScreenLocation.Y + 35 }, { PlayerScreenLocation.X + 20, PlayerScreenLocation.Y + 35 }, 10.f, { 255, 0, 0, 255 }));
-				Data.DrawLineQueue.push_back(DrawLineData({ PlayerScreenLocation.X - 20, PlayerScreenLocation.Y + 35 }, { (PlayerScreenLocation.X - 20) + (player->GetHealthPercentage() * 40), PlayerScreenLocation.Y + 35 }, 10.f, { 0, 255, 0, 255 }));
+				Data.DrawLineQueue.push_back(DrawLineData({ PlayerScreenLocation.X - 20, PlayerScreenLocation.Y + 40 }, { PlayerScreenLocation.X + 20, PlayerScreenLocation.Y + 40 }, 10.f, { 255, 0, 0, 255 }));
+				Data.DrawLineQueue.push_back(DrawLineData({ PlayerScreenLocation.X - 20, PlayerScreenLocation.Y + 40 }, { (PlayerScreenLocation.X - 20) + (player->GetHealthPercentage() * 40), PlayerScreenLocation.Y + 40 }, 10.f, { 0, 255, 0, 255 }));
 			}
 		}
 	}
@@ -88,11 +94,11 @@ void hkPostRender(CG::UShooterGameViewportClient* viewport, CG::UCanvas* canvas)
 
 	for (int i = 0; i < Data.DrawLineQueue.size(); i++)
 	{
-		canvas->K2_DrawLine(Data.DrawLineQueue[i].ScreenPositionA, Data.DrawLineQueue[i].ScreenPositionB, Data.DrawLineQueue[i].Thickness, Data.DrawLineQueue[i].RenderColor);
+		canvas->K2_DrawLine(Data.DrawLineQueue.at(i).ScreenPositionA, Data.DrawLineQueue.at(i).ScreenPositionB, Data.DrawLineQueue.at(i).Thickness, Data.DrawLineQueue.at(i).RenderColor);
 	}
 	for (int i = 0; i < Data.DrawTextQueue.size(); i++)
 	{
-		canvas->K2_DrawText(Data.DrawTextQueue[i].RenderFont, Data.DrawTextQueue[i].RenderText, Data.DrawTextQueue[i].ScreenPosition, Data.DrawTextQueue[i].RenderColor, Data.DrawTextQueue[i].Kerning, Data.DrawTextQueue[i].ShadowColor, Data.DrawTextQueue[i].ShadowOffset, Data.DrawTextQueue[i].bCentreX, Data.DrawTextQueue[i].bCentreY, Data.DrawTextQueue[i].bOutlined, Data.DrawTextQueue[i].OutlineColor);
+		canvas->K2_DrawText(Data.DrawTextQueue.at(i).RenderFont, Data.DrawTextQueue.at(i).RenderText, Data.DrawTextQueue.at(i).ScreenPosition, Data.DrawTextQueue.at(i).RenderColor, Data.DrawTextQueue.at(i).Kerning, Data.DrawTextQueue.at(i).ShadowColor, Data.DrawTextQueue.at(i).ShadowOffset, Data.DrawTextQueue.at(i).bCentreX, Data.DrawTextQueue.at(i).bCentreY, Data.DrawTextQueue.at(i).bOutlined, Data.DrawTextQueue.at(i).OutlineColor);
 	}
 	//dont put any logic here, will cause crashes
 }
@@ -148,7 +154,7 @@ HRESULT hkPresentFunc(IDXGISwapChain* SwapChain, UINT SyncInterval, UINT Flags)
 	if (Data.bMenuOpen)
 	{
 		HookInput();
-		RenderMenu();
+		RenderMenu(D3D.Device);
 	}
 	else
 	{

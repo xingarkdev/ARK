@@ -2,11 +2,42 @@
 #include <string>
 //commenting unused .h files will speed up compilier and intellisense, i dont care to do this
 #include "SDK.h"
-#include "Menu.h"
+#pragma once
+#pragma comment (lib,"d3d9.lib")
+#pragma comment (lib,"d3dx11.lib")
+#include <wtypes.h>
+#include <d3d9.h>
+#include <d3dx11.h>
+#include <d3d9types.h>
+#define IMGUI_DEFINE_MATH_OPERATORS
+#include <fstream>
+#include <filesystem>
+#include <Lmcons.h>
+#include <Hooking/D3D11Hooking.hpp>
+#include "Hooking/HookLib.h"
+#include "Hooking/D3D11Hooking.hpp"
+#include "ImGui/imgui.h"
+#include "ImGui/imgui_impl_win32.h"
+#include "ImGui/imgui_impl_dx11.h"
+#include "ImGui/imgui_internal.h"
+#include "ImGui/imgui_shadow.h"
+#include <D3DX11tex.h>
+#include "ImGui/bytes.h"
 
 using namespace std::string_literals;
 
 #define M_PI 3.141592
+
+ID3D11ShaderResourceView* legit_image = nullptr;
+ID3D11ShaderResourceView* rage_image = nullptr;
+ID3D11ShaderResourceView* visuals_image = nullptr;
+ID3D11ShaderResourceView* players_image = nullptr;
+ID3D11ShaderResourceView* misc_image = nullptr;
+ID3D11ShaderResourceView* settings_image = nullptr;
+
+int accent_color[4] = { 103, 0, 163, 255 };
+int selection_count = 0;
+int legit_group_count = 0;
 
 extern void LoadConfig();
 
@@ -15,7 +46,7 @@ void InitCheat();
 void MainThread();
 
 void hkPostRender(CG::UShooterGameViewportClient* viewport, CG::UCanvas* canvas);
-HRESULT hkPresentFunc(IDXGISwapChain* SwapChain, UINT SyncInterval, UINT Flags); 
+HRESULT hkPresentFunc(IDXGISwapChain* SwapChain, UINT SyncInterval, UINT Flags);
 
 void HookInput();
 void RemoveInput();
@@ -27,6 +58,8 @@ void SaveConfig();
 
 uintptr_t PatternScan(uintptr_t moduleAdress, const char* signature);
 uintptr_t FindDMAAddy(uintptr_t ptr, std::vector<unsigned int> offsets);
+
+void RenderMenu(ID3D11Device* Device);
 
 struct
 {
@@ -92,7 +125,7 @@ struct DataStruct
 		bool silentAim = true;
 		bool noSpread = true;
 		bool rapidFire = true;
-		int aimFOV = 500;
+		float aimFOV = 500.f;
 
 		//ESP
 		float deadPlayerColor[4] = { .5f, .5f, .5f, 1.f };
@@ -269,4 +302,153 @@ void SaveConfig()
 	FILE* fout = fopen(Data.dllPath.c_str(), "w");
 	fwrite(&Data.Settings, sizeof(Data.Settings), 1, fout);
 	fclose(fout);
+}
+
+
+
+//menu is pasted from https://discord.gg/rG86p3e5fr
+void RenderMenu(ID3D11Device* Device) {
+	ImGuiStyle& style = ImGui::GetStyle();
+
+	//this part crashes, it should load the images stored as a byte array as a d3d texture
+	//as a result the tabs are invisible, but can still be clicked
+
+	if (legit_image == nullptr)D3DX11CreateShaderResourceViewFromMemory(D3D.Device, legit, sizeof(legit), 0,
+			0, &legit_image, 0);
+	if (visuals_image == nullptr)D3DX11CreateShaderResourceViewFromMemory(D3D.Device, visuals, sizeof(visuals), 0,
+		0, &visuals_image, 0);
+	if (misc_image == nullptr)D3DX11CreateShaderResourceViewFromMemory(D3D.Device, misc, sizeof(misc), 0,
+		0, &misc_image, 0);
+	if (settings_image == nullptr)D3DX11CreateShaderResourceViewFromMemory(D3D.Device, settings, sizeof(settings), 0,
+		0, &settings_image, 0);
+
+
+	ImGui::SetNextWindowSize(ImVec2(100, 100));
+	ImGui::SetNextWindowSize(ImVec2(680, 470));
+	ImGui::Begin("жопа", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBackground);
+	{
+		const ImVec2 pos = ImGui::GetWindowPos();
+		ImDrawList* draw = ImGui::GetWindowDrawList();
+
+		style.ScrollbarSize = 3.f;
+		style.ScrollbarRounding = 12.f;
+		style.WindowBorderSize = 0.f;
+		style.WindowPadding = ImVec2(0, 0);
+
+		draw->AddRectFilled(pos + ImVec2(71, 56), pos + ImVec2(680, 470), ImColor(11, 11, 11, 255), 2.f, ImDrawFlags_RoundCornersBottomRight);
+
+		draw->AddRectFilled(pos, pos + ImVec2(70, 470), ImColor(14, 14, 14, 255), 2.f, ImDrawFlags_RoundCornersLeft);
+		draw->AddLine(pos + ImVec2(70, 0), pos + ImVec2(70, 470), ImColor(24, 24, 24, 255));
+
+		draw->AddRectFilled(pos + ImVec2(71, 0), pos + ImVec2(680, 55), ImColor(14, 14, 14, 255), 2.f, ImDrawFlags_RoundCornersTopRight);
+		draw->AddLine(pos + ImVec2(71, 55), pos + ImVec2(680, 55), ImColor(24, 24, 24, 255));
+
+		draw->AddLine(pos + ImVec2(20, 183), pos + ImVec2(50, 183), ImColor(255, 255, 255, 15), 1.f);
+
+
+		//->AddCircleFilled(pos + ImVec2(35, 433), 16.f, ImColor(0, 0, 0, 50), 60.f);
+		//draw->AddCircle(pos + ImVec2(35, 433), 17.f, ImColor(255, 255, 255, 15), 60.f);
+
+		draw->AddText({ 630, 80 }, ImColor(255, 255, 255, 255), "xingark.xyz");
+
+		ImGui::AddShadow(ImVec2(0, 0), ImVec2(680, 470), 20, 4, 7, 2, 20, ImColor(0, 0, 0));
+
+		ImGui::SetCursorPos(ImVec2(10, 10));
+		ImGui::BeginGroup();
+		if (ImGui::selection("legit", legit_image, 0 == selection_count))
+			selection_count = 0;
+		if (ImGui::selection("visuals", visuals_image, 2 == selection_count))
+			selection_count = 2;
+		if (ImGui::selection("misc", misc_image, 3 == selection_count))
+			selection_count = 3;
+		if (ImGui::selection("settings", settings_image, 5 == selection_count))
+			selection_count = 5;
+		ImGui::EndGroup();
+		ImGui::SetCursorPos(ImVec2(85, 15));
+		ImGui::BeginGroup();
+		if (selection_count == 2)
+		{
+			if (ImGui::group("3D", 0 == legit_group_count))
+				legit_group_count = 0;
+			ImGui::SameLine();
+			if (ImGui::group("2D", 1 == legit_group_count))
+				legit_group_count = 1;
+
+			//3D visuals
+			if (legit_group_count == 0)
+			{
+				ImGui::SetCursorPos(ImVec2(85, 70));
+				ImGui::BeginChild("Visuals", ImVec2(282, 386));
+
+				ImGui::Checkbox("Player ESP", &Data.Settings.playerESP);
+
+				ImGui::EndChild();
+
+				ImGui::SetCursorPos(ImVec2(382, 70));
+				ImGui::BeginChild("Colors", ImVec2(282, 386));
+
+				ImGui::ColorEdit4("Enemy Player Color", Data.Settings.enemyPlayerColor);
+				ImGui::ColorEdit4("Sleeping Player Color", Data.Settings.sleepingPlayerColor);
+				ImGui::ColorEdit4("Ally Player Color", Data.Settings.teamPlayerColor);
+				ImGui::ColorEdit4("Dead Player Color", Data.Settings.deadPlayerColor);
+
+				ImGui::EndChild();
+			}
+			//2D visuals
+			else if (legit_group_count == 1)
+			{
+
+			}
+
+		}
+		//weapon hacks
+		else if (selection_count == 0)
+		{
+			if (ImGui::group("Weapon Hacks", true)) {}
+
+			ImGui::SetCursorPos(ImVec2(85, 70));
+			ImGui::BeginChild("Aim Assistance", ImVec2(282, 386));
+
+			ImGui::Checkbox("Aimbot", &Data.Settings.aimbot);
+			ImGui::SliderFloat("Aim FOV", &Data.Settings.aimFOV, 0.f, 1000.f);
+
+			ImGui::EndChild();
+
+			ImGui::SetCursorPos(ImVec2(382, 70));
+			ImGui::BeginChild("Other Weapon Hacks", ImVec2(282, 386));
+
+			ImGui::ColorEdit4("Enemy Player Color", Data.Settings.enemyPlayerColor);
+			ImGui::ColorEdit4("Sleeping Player Color", Data.Settings.sleepingPlayerColor);
+			ImGui::ColorEdit4("Ally Player Color", Data.Settings.teamPlayerColor);
+			ImGui::ColorEdit4("Dead Player Color", Data.Settings.deadPlayerColor);
+
+			ImGui::EndChild();
+		}
+		else if (selection_count == 3)
+		{
+			if (ImGui::group("Misc", true)) {}
+
+			ImGui::SetCursorPos(ImVec2(85, 70));
+			ImGui::BeginChild("Aim Assistance", ImVec2(282, 386));
+
+			ImGui::Checkbox("GCM Fly", &Data.Settings.Fly);
+
+			ImGui::EndChild();
+
+			ImGui::SetCursorPos(ImVec2(382, 70));
+			ImGui::BeginChild("Other Weapon Hacks", ImVec2(282, 386));
+
+			ImGui::ColorEdit4("Enemy Player Color", Data.Settings.enemyPlayerColor);
+			ImGui::ColorEdit4("Sleeping Player Color", Data.Settings.sleepingPlayerColor);
+			ImGui::ColorEdit4("Ally Player Color", Data.Settings.teamPlayerColor);
+			ImGui::ColorEdit4("Dead Player Color", Data.Settings.deadPlayerColor);
+
+			ImGui::EndChild();
+		}
+
+		ImGui::EndGroup();
+
+	}
+	ImGui::End();
+
 }
