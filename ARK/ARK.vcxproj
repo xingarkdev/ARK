@@ -196,6 +196,7 @@
     <ClInclude Include="SDK.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\xingarkv2\ARK\SDK\Buff_TekArmor_Gloves_Package.cpp" />
     <ClCompile Include="..\..\xingarkv2\ARK\SDK\ShooterGame_Package.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Hack.cpp" />

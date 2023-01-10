@@ -128,6 +128,9 @@
     <ClCompile Include="..\..\xingarkv2\ARK\SDK\ShooterGame_Package.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\xingarkv2\ARK\SDK\Buff_TekArmor_Gloves_Package.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="Hooking\HookLib.lib" />
