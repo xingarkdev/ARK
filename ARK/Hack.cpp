@@ -11,7 +11,7 @@ void InitCheat()
 	SetHook((void*)PatternScan((uintptr_t)GetModuleHandle(NULL), "E9 ? ? ? ? CC CC CC CC CC CC CC CC CC CC CC 40 56 41 54"), hkPostRender, reinterpret_cast<PVOID*>(Data.OriginalPostRender));
 
 	//Hook AdjAim
-	SetHook((void*)PatternScan((uintptr_t)GetModuleHandle(NULL), "48 89 5C 24 ? 48 89 74 24 ? 48 89 7C 24 ? 4C 89 74 24 ? 55 48 8B EC 48 83 EC 60 48 8B B9 ? ? ? ? "), hkAdjustedAim, reinterpret_cast<PVOID*>(&Data.OriginalhkAdjustedAim));
+	SetHook((void*)PatternScan((uintptr_t)GetModuleHandle(NULL), "48 89 5C 24 ? 48 89 74 24 ? 48 89 7C 24 ? 4C 89 74 24 ? 55 48 8B EC 48 83 EC 60 48 8B B9 ? ? ? ?"), hkAdjustedAim, reinterpret_cast<PVOID*>(&Data.OriginalhkAdjustedAim));
 
 	//hook d3d
 	D3D.PresentFunc = GetD3D11PresentFunction();
@@ -31,6 +31,7 @@ void MainThread()
 {
 	Data.DrawLineQueue.clear();
 	Data.DrawTextQueue.clear();
+	Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, L"123", {500,500}, {1,0,0,1}, 1.0f, Data.Settings.shadowColor, {1, 1}, true, true, true, Data.Settings.shadowColor));
 	auto pWorld = (*CG::UWorld::GWorld);
 	auto gameplayStatics = reinterpret_cast<CG::UGameplayStatics*>(CG::UGameplayStatics::StaticClass());
 	Data.mathLib = reinterpret_cast<CG::UKismetMathLibrary*>(CG::UKismetMathLibrary::StaticClass());
@@ -47,13 +48,12 @@ void MainThread()
 
 			//player loop
 			int recordDistance = 0;
-			gameplayStatics->STATIC_GetAllActorsOfClass(pWorld, CG::AShooterCharacter::StaticClass(), &Data.primalChars);
+			gameplayStatics->STATIC_GetAllActorsOfClas s(pWorld, CG::AShooterCharacter::StaticClass(), &Data.primalChars);
 			Data.AimbotTarget = nullptr;
 			Data.localPlayer = nullptr;
 			for (int p = 0; p < Data.primalChars.Count(); ++p)
 			{
 				auto* player = reinterpret_cast<CG::AShooterCharacter*>(Data.primalChars[p]);
-				if (Data.primalChars[p] == Data.primalChars[0] && p != 0) break;
 
 				CG::FVector2D PlayerScreenLocation{};
 
@@ -89,10 +89,10 @@ void MainThread()
 					}
 
 					//aimbot
-					if (!player->IsDead() && player->BPIsConscious() && Data.localPlayer && !player->IsPrimalCharFriendly(Data.localPlayer))
+					if (!player->IsDead() && player->BPIsConscious() /* && Data.localPlayer && !player->IsPrimalCharFriendly(Data.localPlayer) */ )
 					{
 						int distance = calcDistance(Data.drawCanvas->SizeX / 2, Data.drawCanvas->SizeY / 2, PlayerScreenLocation.X, PlayerScreenLocation.Y);
-						if (distance < Data.Settings.aimFOV)
+						if (distance < (int)Data.Settings.aimFOV)
 						{
 							Data.DrawLineQueue.push_back(DrawLineData({ (float)Data.drawCanvas->SizeX / 2, (float)Data.drawCanvas->SizeY / 2 }, PlayerScreenLocation, 1.0f, Data.Settings.enemyPlayerColor));
 							if (!recordDistance) recordDistance = distance, Data.AimbotTarget = player;
@@ -169,167 +169,167 @@ void MainThread()
 				Data.localPlayer->CurrentWeapon->CurrentFiringSpread = 0;
 			}
 
-			//note hack
-			if (Data.Settings.useNotes)
-			{
-				auto controller = reinterpret_cast<CG::AShooterPlayerController*>(Data.pCtr);
-				for (int i = 0; i < 10000; ++i)
-				{
-					controller->UnlockExplorerNote(i, false);
-				}
-				Data.Settings.useNotes = false;
-			}
+			////note hack
+			//if (Data.Settings.useNotes)
+			//{
+			//	auto controller = reinterpret_cast<CG::AShooterPlayerController*>(Data.pCtr);
+			//	for (int i = 0; i < 10000; ++i)
+			//	{
+			//		controller->UnlockExplorerNote(i, false);
+			//	}
+			//	Data.Settings.useNotes = false;
+			//}
 
-			//custom char
-			if (Data.Settings.createChar)
-			{
-				CG::FPrimalPlayerCharacterConfigStructReplicated data;
-				data.bIsFemale = true;
-				data.BodyColors[0] = Data.Settings.bodyColor;
-				data.BodyColors[1] = Data.Settings.bodyColor;
-				data.BodyColors[2] = Data.Settings.bodyColor;
-				data.BodyColors[3] = Data.Settings.bodyColor;
-				for (int i = 0; i < 22; i++)
-					data.RawBoneModifiers[i] = -1.0f;
+			////custom char
+			//if (Data.Settings.createChar)
+			//{
+			//	CG::FPrimalPlayerCharacterConfigStructReplicated data;
+			//	data.bIsFemale = true;
+			//	data.BodyColors[0] = Data.Settings.bodyColor;
+			//	data.BodyColors[1] = Data.Settings.bodyColor;
+			//	data.BodyColors[2] = Data.Settings.bodyColor;
+			//	data.BodyColors[3] = Data.Settings.bodyColor;
+			//	for (int i = 0; i < 22; i++)
+			//		data.RawBoneModifiers[i] = -1.0f;
 
-				data.PlayerCharacterName = Data.Settings.charName;
-				data.PlayerSpawnRegionIndex = 0;
-				reinterpret_cast<CG::AShooterPlayerState*>(pWorld->GameState->PlayerArray[0])->ServerRequestCreateNewPlayer(data);
-				Data.Settings.createChar = false;
-			}
+			//	data.PlayerCharacterName = Data.Settings.charName;
+			//	data.PlayerSpawnRegionIndex = 0;
+			//	reinterpret_cast<CG::AShooterPlayerState*>(pWorld->GameState->PlayerArray[0])->ServerRequestCreateNewPlayer(data);
+			//	Data.Settings.createChar = false;
+			//}
 
-			//auto armor
-			if (Data.localPlayer && Data.Settings.autoArmor)
-			{
-				auto Inventory = Data.pCtr->GetPawnInventoryComponent();
-				if (Inventory)
-				{
-					CG::UPrimalItem* bestHat = nullptr;
-					CG::UPrimalItem* bestShirt = nullptr;
-					CG::UPrimalItem* bestGloves = nullptr;
-					CG::UPrimalItem* bestPants = nullptr;
-					CG::UPrimalItem* bestBoots = nullptr;
-					bool hasHat = false;
-					bool hasShirt = false;
-					bool hasGloves = false;
-					bool hasPants = false;
-					bool hasBoots = false;
-					for (int i = 0; i < Inventory->InventoryItems.Count(); i++)
-					{
-						auto Item = Inventory->InventoryItems[i];
-						if (Item->IsBroken()) continue;
-						if (Item->bIsEngram) continue;
-						if (Item->MyEquipmentType == CG::EPrimalEquipmentType::Hat)
-						{
-							if (!bestHat) bestHat = Item;
-							else if (bestHat->ItemDurability <= Item->ItemDurability) bestHat = Item;
-						}
-						if (Item->MyEquipmentType == CG::EPrimalEquipmentType::Shirt)
-						{
-							if (!bestShirt) bestShirt = Item;
-							else if (bestShirt->ItemDurability <= Item->ItemDurability) bestShirt = Item;
-						}
-						if (Item->MyEquipmentType == CG::EPrimalEquipmentType::Gloves)
-						{
-							if (!bestGloves) bestGloves = Item;
-							else if (bestGloves->ItemDurability <= Item->ItemDurability) bestGloves = Item;
-						}
-						if (Item->MyEquipmentType == CG::EPrimalEquipmentType::Pants)
-						{
-							if (!bestPants) bestPants = Item;
-							else if (bestPants->ItemDurability <= Item->ItemDurability) bestPants = Item;
-						}
-						if (Item->MyEquipmentType == CG::EPrimalEquipmentType::Boots)
-						{
-							if (!bestBoots) bestBoots = Item;
-							else if (bestBoots->ItemDurability <= Item->ItemDurability) bestBoots = Item;
-						}
-					}
-					for (int i = 0; i < Inventory->EquippedItems.Count(); i++)
-					{
-						auto Item = Inventory->EquippedItems[i];
-						if (Item->MyEquipmentType == CG::EPrimalEquipmentType::Hat)
-						{
-							hasHat = true;
-							if (Item->GetDurabilityPercentage() < Data.Settings.autoArmorPercent) if (bestHat && bestHat->GetDurabilityPercentage() >= Data.Settings.autoArmorPercent) Data.pCtr->ServerEquipPawnItem(bestHat->ItemId);
-						}
-						if (Item->MyEquipmentType == CG::EPrimalEquipmentType::Shirt)
-						{
-							hasShirt = true;
-							if (Item->GetDurabilityPercentage() < Data.Settings.autoArmorPercent) if (bestShirt && bestShirt->GetDurabilityPercentage() >= Data.Settings.autoArmorPercent) Data.pCtr->ServerEquipPawnItem(bestShirt->ItemId);
-						}
-						if (Item->MyEquipmentType == CG::EPrimalEquipmentType::Gloves)
-						{
-							hasGloves = true;
-							if (Item->GetDurabilityPercentage() < Data.Settings.autoArmorPercent) if (bestGloves && bestGloves->GetDurabilityPercentage() >= Data.Settings.autoArmorPercent) Data.pCtr->ServerEquipPawnItem(bestGloves->ItemId);
-						}
-						if (Item->MyEquipmentType == CG::EPrimalEquipmentType::Pants)
-						{
-							hasPants = true;
-							if (Item->GetDurabilityPercentage() < Data.Settings.autoArmorPercent) if (bestPants && bestPants->GetDurabilityPercentage() >= Data.Settings.autoArmorPercent) Data.pCtr->ServerEquipPawnItem(bestPants->ItemId);
-						}
-						if (Item->MyEquipmentType == CG::EPrimalEquipmentType::Boots)
-						{
-							hasBoots = true;
-							if (Item->GetDurabilityPercentage() < Data.Settings.autoArmorPercent) if (bestBoots && bestBoots->GetDurabilityPercentage() >= Data.Settings.autoArmorPercent) Data.pCtr->ServerEquipPawnItem(bestBoots->ItemId);
-						}
-					}
-					if (!hasHat) if (bestHat) Data.pCtr->ServerEquipPawnItem(bestHat->ItemId);
-					if (!hasShirt) if (bestShirt) Data.pCtr->ServerEquipPawnItem(bestShirt->ItemId);
-					if (!hasGloves) if (bestGloves) Data.pCtr->ServerEquipPawnItem(bestGloves->ItemId);
-					if (!hasPants) if (bestPants) Data.pCtr->ServerEquipPawnItem(bestPants->ItemId);
-					if (!hasBoots) if (bestBoots) Data.pCtr->ServerEquipPawnItem(bestBoots->ItemId);
-				}
-			}
+			////auto armor
+			//if (Data.localPlayer && Data.Settings.autoArmor)
+			//{
+			//	auto Inventory = Data.pCtr->GetPawnInventoryComponent();
+			//	if (Inventory)
+			//	{
+			//		CG::UPrimalItem* bestHat = nullptr;
+			//		CG::UPrimalItem* bestShirt = nullptr;
+			//		CG::UPrimalItem* bestGloves = nullptr;
+			//		CG::UPrimalItem* bestPants = nullptr;
+			//		CG::UPrimalItem* bestBoots = nullptr;
+			//		bool hasHat = false;
+			//		bool hasShirt = false;
+			//		bool hasGloves = false;
+			//		bool hasPants = false;
+			//		bool hasBoots = false;
+			//		for (int i = 0; i < Inventory->InventoryItems.Count(); i++)
+			//		{
+			//			auto Item = Inventory->InventoryItems[i];
+			//			if (Item->IsBroken()) continue;
+			//			if (Item->bIsEngram) continue;
+			//			if (Item->MyEquipmentType == CG::EPrimalEquipmentType::Hat)
+			//			{
+			//				if (!bestHat) bestHat = Item;
+			//				else if (bestHat->ItemDurability <= Item->ItemDurability) bestHat = Item;
+			//			}
+			//			if (Item->MyEquipmentType == CG::EPrimalEquipmentType::Shirt)
+			//			{
+			//				if (!bestShirt) bestShirt = Item;
+			//				else if (bestShirt->ItemDurability <= Item->ItemDurability) bestShirt = Item;
+			//			}
+			//			if (Item->MyEquipmentType == CG::EPrimalEquipmentType::Gloves)
+			//			{
+			//				if (!bestGloves) bestGloves = Item;
+			//				else if (bestGloves->ItemDurability <= Item->ItemDurability) bestGloves = Item;
+			//			}
+			//			if (Item->MyEquipmentType == CG::EPrimalEquipmentType::Pants)
+			//			{
+			//				if (!bestPants) bestPants = Item;
+			//				else if (bestPants->ItemDurability <= Item->ItemDurability) bestPants = Item;
+			//			}
+			//			if (Item->MyEquipmentType == CG::EPrimalEquipmentType::Boots)
+			//			{
+			//				if (!bestBoots) bestBoots = Item;
+			//				else if (bestBoots->ItemDurability <= Item->ItemDurability) bestBoots = Item;
+			//			}
+			//		}
+			//		for (int i = 0; i < Inventory->EquippedItems.Count(); i++)
+			//		{
+			//			auto Item = Inventory->EquippedItems[i];
+			//			if (Item->MyEquipmentType == CG::EPrimalEquipmentType::Hat)
+			//			{
+			//				hasHat = true;
+			//				if (Item->GetDurabilityPercentage() < Data.Settings.autoArmorPercent) if (bestHat && bestHat->GetDurabilityPercentage() >= Data.Settings.autoArmorPercent) Data.pCtr->ServerEquipPawnItem(bestHat->ItemId);
+			//			}
+			//			if (Item->MyEquipmentType == CG::EPrimalEquipmentType::Shirt)
+			//			{
+			//				hasShirt = true;
+			//				if (Item->GetDurabilityPercentage() < Data.Settings.autoArmorPercent) if (bestShirt && bestShirt->GetDurabilityPercentage() >= Data.Settings.autoArmorPercent) Data.pCtr->ServerEquipPawnItem(bestShirt->ItemId);
+			//			}
+			//			if (Item->MyEquipmentType == CG::EPrimalEquipmentType::Gloves)
+			//			{
+			//				hasGloves = true;
+			//				if (Item->GetDurabilityPercentage() < Data.Settings.autoArmorPercent) if (bestGloves && bestGloves->GetDurabilityPercentage() >= Data.Settings.autoArmorPercent) Data.pCtr->ServerEquipPawnItem(bestGloves->ItemId);
+			//			}
+			//			if (Item->MyEquipmentType == CG::EPrimalEquipmentType::Pants)
+			//			{
+			//				hasPants = true;
+			//				if (Item->GetDurabilityPercentage() < Data.Settings.autoArmorPercent) if (bestPants && bestPants->GetDurabilityPercentage() >= Data.Settings.autoArmorPercent) Data.pCtr->ServerEquipPawnItem(bestPants->ItemId);
+			//			}
+			//			if (Item->MyEquipmentType == CG::EPrimalEquipmentType::Boots)
+			//			{
+			//				hasBoots = true;
+			//				if (Item->GetDurabilityPercentage() < Data.Settings.autoArmorPercent) if (bestBoots && bestBoots->GetDurabilityPercentage() >= Data.Settings.autoArmorPercent) Data.pCtr->ServerEquipPawnItem(bestBoots->ItemId);
+			//			}
+			//		}
+			//		if (!hasHat) if (bestHat) Data.pCtr->ServerEquipPawnItem(bestHat->ItemId);
+			//		if (!hasShirt) if (bestShirt) Data.pCtr->ServerEquipPawnItem(bestShirt->ItemId);
+			//		if (!hasGloves) if (bestGloves) Data.pCtr->ServerEquipPawnItem(bestGloves->ItemId);
+			//		if (!hasPants) if (bestPants) Data.pCtr->ServerEquipPawnItem(bestPants->ItemId);
+			//		if (!hasBoots) if (bestBoots) Data.pCtr->ServerEquipPawnItem(bestBoots->ItemId);
+			//	}
+			//}
 
-			//infinite orbit
-			if (Data.Settings.infiniteOrbit && Data.localPlayer)
-			{
-				Data.localPlayer->OrbitCamMaxZoomLevel = 5000;
-			}
+			////infinite orbit
+			//if (Data.Settings.infiniteOrbit && Data.localPlayer)
+			//{
+			//	Data.localPlayer->OrbitCamMaxZoomLevel = 5000;
+			//}
 
-			//rapid fire
-			if (Data.Settings.rapidFire && Data.localPlayer)
-			{
-				auto Zoom = Data.localPlayer->CurrentWeapon;
-				Zoom->WeaponConfig.TimeBetweenShots = 0.01;
-				if (Zoom->LastFireTime == 0) Zoom->LastFireTime = Zoom->LastFireTime + Zoom->LastNotifyShotTime - Zoom->WeaponConfig.TimeBetweenShots;
-			}
+			////rapid fire
+			//if (Data.Settings.rapidFire && Data.localPlayer)
+			//{
+			//	auto Zoom = Data.localPlayer->CurrentWeapon;
+			//	Zoom->WeaponConfig.TimeBetweenShots = 0.01;
+			//	if (Zoom->LastFireTime == 0) Zoom->LastFireTime = Zoom->LastFireTime + Zoom->LastNotifyShotTime - Zoom->WeaponConfig.TimeBetweenShots;
+			//}
 
-			//instant turn
-			if (Data.Settings.instantTurn && Data.localPlayer) {
-				auto RiddenDino = Data.localPlayer->GetBasedOnDino();
-				if (RiddenDino)
-				{
-					RiddenDino->RiderMovementSpeedScalingRotationRatePowerMultiplier = 10000;
-					RiddenDino->WalkingRotationRateModifier = 10000;
-					RiddenDino->RiderFlyingRotationRateModifier = 10000;
-					RiddenDino->bFlyerDinoAllowBackwardsFlight = true;
-					RiddenDino->bFlyerDinoAllowStrafing = true;
-					RiddenDino->bFlyingOrWaterDinoPreventBackwardsRun = true;
-				}
-			}
+			////instant turn
+			//if (Data.Settings.instantTurn && Data.localPlayer) {
+			//	auto RiddenDino = Data.localPlayer->GetBasedOnDino();
+			//	if (RiddenDino)
+			//	{
+			//		RiddenDino->RiderMovementSpeedScalingRotationRatePowerMultiplier = 10000;
+			//		RiddenDino->WalkingRotationRateModifier = 10000;
+			//		RiddenDino->RiderFlyingRotationRateModifier = 10000;
+			//		RiddenDino->bFlyerDinoAllowBackwardsFlight = true;
+			//		RiddenDino->bFlyerDinoAllowStrafing = true;
+			//		RiddenDino->bFlyingOrWaterDinoPreventBackwardsRun = true;
+			//	}
+			//}
 
-			//gcm fly
-			static bool runFly = true;
-			try {
-				if (Data.KeyboardInfo.at(Data.Settings.FlyKey).KeyState & 1) Data.Settings.Fly = !Data.Settings.Fly, runFly = true;
-			}
-			catch (std::out_of_range e) {
-			}
-			static CG::ABuff_TekArmor_Gloves_C* gloves = nullptr;
-			if (Data.pCtr->GetPlayerCharacter()) gloves = (CG::ABuff_TekArmor_Gloves_C*)Data.pCtr->GetPlayerCharacter()->GetBuff(CG::ABuff_TekArmor_Gloves_C::StaticClass());
-			if (gloves && runFly)
-			{
-				if (Data.Settings.Fly)
-				{
-					gloves->Server_SetPunchChargeState((CG::E_TekGlovePunchState)0);
-					gloves->Server_SetPunchChargeState((CG::E_TekGlovePunchState)3);
-					gloves->Server_SetPunchChargeState((CG::E_TekGlovePunchState)5);
-				}
-				else gloves->Server_SetPunchChargeState((CG::E_TekGlovePunchState)0);
-				runFly = false;
-			}
+			////gcm fly
+			//static bool runFly = true;
+			//try {
+			//	if (Data.KeyboardInfo.at(Data.Settings.FlyKey).KeyState & 1) Data.Settings.Fly = !Data.Settings.Fly, runFly = true;
+			//}
+			//catch (std::out_of_range e) {
+			//}
+			//static CG::ABuff_TekArmor_Gloves_C* gloves = nullptr;
+			//if (Data.pCtr->GetPlayerCharacter()) gloves = (CG::ABuff_TekArmor_Gloves_C*)Data.pCtr->GetPlayerCharacter()->GetBuff(CG::ABuff_TekArmor_Gloves_C::StaticClass());
+			//if (gloves && runFly)
+			//{
+			//	if (Data.Settings.Fly)
+			//	{
+			//		gloves->Server_SetPunchChargeState((CG::E_TekGlovePunchState)0);
+			//		gloves->Server_SetPunchChargeState((CG::E_TekGlovePunchState)3);
+			//		gloves->Server_SetPunchChargeState((CG::E_TekGlovePunchState)5);
+			//	}
+			//	else gloves->Server_SetPunchChargeState((CG::E_TekGlovePunchState)0);
+			//	runFly = false;
+			//}
 		} while (false);
 	}
 	catch (std::exception e)

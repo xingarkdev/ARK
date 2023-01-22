@@ -727,7 +727,7 @@ void RenderMenu(ID3D11Device* Device) {
 	//this part crashes, it should load the images stored as a byte array as a d3d texture
 	//as a result the tabs are invisible, but can still be clicked
 
-	if (legit_image == nullptr)D3DX11CreateShaderResourceViewFromMemory(D3D.Device, legit, sizeof(legit), 0,
+	if (legit_image == nullptr)D3DX11CreateShaderResourceViewFromMemory(D3D.Device, rage, sizeof(rage), 0,
 			0, &legit_image, 0);
 	if (visuals_image == nullptr)D3DX11CreateShaderResourceViewFromMemory(D3D.Device, visuals, sizeof(visuals), 0,
 		0, &visuals_image, 0);
