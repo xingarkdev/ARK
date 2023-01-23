@@ -1,4 +1,5 @@
 #include "Hack.h"
+#include <random>
 
 void InitCheat()
 {
@@ -46,7 +47,24 @@ void MainThread()
 
 	try {
 		do {
+			if (Data.Settings.panicMode) return;
+			//HUD info
+			std::random_device rd;
+			std::mt19937 gen(rd());
+			std::uniform_real_distribution<> dist(0, 1);
+			Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, L"xingark.xyz", { Data.drawCanvas->SizeX * .95,Data.drawCanvas->SizeY * .02 }, { (float)dist(gen),(float)dist(gen),(float)dist(gen),1 }, 1.0f, Data.Settings.shadowColor, { 1, 1 }, true, true, true, Data.Settings.shadowColor));
 			
+			//party time
+			/*Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, L"xingark.xyz", {Data.drawCanvas->SizeX * (float)dist(gen),Data.drawCanvas->SizeY * (float)dist(gen)}, {(float)dist(gen),(float)dist(gen),(float)dist(gen),1}, 1.0f, Data.Settings.shadowColor, {1, 1}, true, true, true, Data.Settings.shadowColor));
+			Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, L"xingark.xyz", { Data.drawCanvas->SizeX * (float)dist(gen),Data.drawCanvas->SizeY * (float)dist(gen) }, { (float)dist(gen),(float)dist(gen),(float)dist(gen),1 }, 1.0f, Data.Settings.shadowColor, { 1, 1 }, true, true, true, Data.Settings.shadowColor));
+			Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, L"xingark.xyz", { Data.drawCanvas->SizeX * (float)dist(gen),Data.drawCanvas->SizeY * (float)dist(gen) }, { (float)dist(gen),(float)dist(gen),(float)dist(gen),1 }, 1.0f, Data.Settings.shadowColor, { 1, 1 }, true, true, true, Data.Settings.shadowColor));
+			Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, L"xingark.xyz", { Data.drawCanvas->SizeX * (float)dist(gen),Data.drawCanvas->SizeY * (float)dist(gen) }, { (float)dist(gen),(float)dist(gen),(float)dist(gen),1 }, 1.0f, Data.Settings.shadowColor, { 1, 1 }, true, true, true, Data.Settings.shadowColor));
+			Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, L"xingark.xyz", { Data.drawCanvas->SizeX * (float)dist(gen),Data.drawCanvas->SizeY * (float)dist(gen) }, { (float)dist(gen),(float)dist(gen),(float)dist(gen),1 }, 1.0f, Data.Settings.shadowColor, { 1, 1 }, true, true, true, Data.Settings.shadowColor));
+			Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, L"xingark.xyz", { Data.drawCanvas->SizeX * (float)dist(gen),Data.drawCanvas->SizeY * (float)dist(gen) }, { (float)dist(gen),(float)dist(gen),(float)dist(gen),1 }, 1.0f, Data.Settings.shadowColor, { 1, 1 }, true, true, true, Data.Settings.shadowColor));
+			Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, L"xingark.xyz", { Data.drawCanvas->SizeX * (float)dist(gen),Data.drawCanvas->SizeY * (float)dist(gen) }, { (float)dist(gen),(float)dist(gen),(float)dist(gen),1 }, 1.0f, Data.Settings.shadowColor, { 1, 1 }, true, true, true, Data.Settings.shadowColor));
+			Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, L"xingark.xyz", { Data.drawCanvas->SizeX * (float)dist(gen),Data.drawCanvas->SizeY * (float)dist(gen) }, { (float)dist(gen),(float)dist(gen),(float)dist(gen),1 }, 1.0f, Data.Settings.shadowColor, { 1, 1 }, true, true, true, Data.Settings.shadowColor));
+			*/
+
 
 			//player loop
 			int recordDistance = 0;
@@ -61,6 +79,7 @@ void MainThread()
 
 				if (player->IsLocallyControlled()) Data.localPlayer = player;
 				else if (Data.pCtr->PlayerCameraManager && W2S(player->RootComponent->GetWorldLocation(), PlayerScreenLocation))
+				//else if (Data.pCtr->ProjectWorldLocationToScreen(player->RootComponent->GetWorldLocation(), &PlayerScreenLocation))
 				{
 					if (Data.Settings.playerESP)
 					{
@@ -201,10 +220,11 @@ void MainThread()
 			}
 
 			//auto armor
-			if (Data.localPlayer && Data.Settings.autoArmor)
+			/*if (Data.localPlayer && Data.Settings.autoArmor && Data.pCtr)
 			{
-				auto Inventory = Data.pCtr->GetPawnInventoryComponent();
-				if (Inventory)
+				static CG::UPrimalInventoryComponent* Inventory = Data.pCtr->GetPawnInventoryComponent();
+				if (!Inventory) Inventory = Data.pCtr->GetPawnInventoryComponent();
+				else
 				{
 					CG::UPrimalItem* bestHat = nullptr;
 					CG::UPrimalItem* bestShirt = nullptr;
@@ -276,13 +296,13 @@ void MainThread()
 							if (Item->GetDurabilityPercentage() < Data.Settings.autoArmorPercent) if (bestBoots && bestBoots->GetDurabilityPercentage() >= Data.Settings.autoArmorPercent) Data.pCtr->ServerEquipPawnItem(bestBoots->ItemId);
 						}
 					}
-					if (!hasHat) if (bestHat) Data.pCtr->ServerEquipPawnItem(bestHat->ItemId);
-					if (!hasShirt) if (bestShirt) Data.pCtr->ServerEquipPawnItem(bestShirt->ItemId);
-					if (!hasGloves) if (bestGloves) Data.pCtr->ServerEquipPawnItem(bestGloves->ItemId);
-					if (!hasPants) if (bestPants) Data.pCtr->ServerEquipPawnItem(bestPants->ItemId);
-					if (!hasBoots) if (bestBoots) Data.pCtr->ServerEquipPawnItem(bestBoots->ItemId);
+					if (!hasHat && bestHat) Data.pCtr->ServerEquipPawnItem(bestHat->ItemId);
+					if (!hasShirt && bestShirt) Data.pCtr->ServerEquipPawnItem(bestShirt->ItemId);
+					if (!hasGloves && bestGloves) Data.pCtr->ServerEquipPawnItem(bestGloves->ItemId);
+					if (!hasPants && bestPants) Data.pCtr->ServerEquipPawnItem(bestPants->ItemId);
+					if (!hasBoots && bestBoots) Data.pCtr->ServerEquipPawnItem(bestBoots->ItemId);
 				}
-			}
+			}*/
 
 			//infinite orbit
 			if (Data.Settings.infiniteOrbit && Data.localPlayer)
@@ -290,13 +310,16 @@ void MainThread()
 				Data.localPlayer->OrbitCamMaxZoomLevel = 5000;
 			}
 
-			//rapid fire
-			if (Data.Settings.rapidFire && Data.localPlayer)
-			{
-				auto Zoom = Data.localPlayer->CurrentWeapon;
-				Zoom->WeaponConfig.TimeBetweenShots = 0.01;
-				if (Zoom->LastFireTime == 0) Zoom->LastFireTime = Zoom->LastFireTime + Zoom->LastNotifyShotTime - Zoom->WeaponConfig.TimeBetweenShots;
-			}
+			////rapid fire
+			//if (Data.Settings.rapidFire && Data.localPlayer)
+			//{
+			//	auto Zoom = Data.localPlayer->CurrentWeapon;
+			//	if (Zoom) 
+			//	{
+			//		Zoom->WeaponConfig.TimeBetweenShots = 0.01;
+			//		if (Zoom->LastFireTime == 0) Zoom->LastFireTime = Zoom->LastFireTime + Zoom->LastNotifyShotTime - Zoom->WeaponConfig.TimeBetweenShots;
+			//	}
+			//}
 
 			//instant turn
 			if (Data.Settings.instantTurn && Data.localPlayer) {
@@ -313,7 +336,7 @@ void MainThread()
 			}
 
 			//gcm fly
-			static bool runFly = true;
+			/*static bool runFly = true;
 			try {
 				if (Data.KeyboardInfo.at(Data.Settings.FlyKey).KeyState & 1) Data.Settings.Fly = !Data.Settings.Fly, runFly = true;
 			}
@@ -331,7 +354,7 @@ void MainThread()
 				}
 				else gloves->Server_SetPunchChargeState((CG::E_TekGlovePunchState)0);
 				runFly = false;
-			}
+			}*/
 		} while (false);
 	}
 	catch (std::exception e)
