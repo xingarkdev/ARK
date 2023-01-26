@@ -44,7 +44,6 @@ void MainThread()
 	if (!Data.pHud || !Data.pCtr || !Data.drawCanvas) return;
 	//Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, str1, {500, 500}, {1, 0, 0, 1}, 1.0f, Data.Settings.shadowColor, {1, 1}, true, true, true, Data.Settings.shadowColor));
 	//Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, L"123", { 500,500 }, { 1,0,0,1 }, 1.0f, Data.Settings.shadowColor, { 1, 1 }, true, true, true, Data.Settings.shadowColor));
-
 	try {
 		do {
 			if (Data.Settings.panicMode) return;
@@ -79,7 +78,7 @@ void MainThread()
 
 				if (player->IsLocallyControlled()) Data.localPlayer = player;
 				else if (Data.pCtr->PlayerCameraManager && W2S(player->RootComponent->GetWorldLocation(), PlayerScreenLocation))
-				//else if (Data.pCtr->ProjectWorldLocationToScreen(player->RootComponent->GetWorldLocation(), &PlayerScreenLocation))
+				//else if (Data.pCtr->ProjectWorldLocationToScreen(player->K2_GetRootComponent()->GetWorldLocation(), &PlayerScreenLocation))
 				{
 					if (Data.Settings.playerESP)
 					{
@@ -103,6 +102,7 @@ void MainThread()
 						_itow((int)player->ReplicatedWeight, str1, 10);
 						wcscat(str1, str);
 						Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, str1, { PlayerScreenLocation.X,PlayerScreenLocation.Y + 20 }, renderColor, 1.0f, Data.Settings.shadowColor, { 1, 1 }, true, true, true, Data.Settings.shadowColor));
+						//Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, (L""s + std::to_wstring((int)player->ReplicatedWeight)).c_str(), {PlayerScreenLocation.X,PlayerScreenLocation.Y + 20}, renderColor, 1.0f, Data.Settings.shadowColor, {1, 1}, true, true, true, Data.Settings.shadowColor));
 
 						//hp bar
 						Data.DrawLineQueue.push_back(DrawLineData({ PlayerScreenLocation.X - 20, PlayerScreenLocation.Y + 40 }, { PlayerScreenLocation.X + 20, PlayerScreenLocation.Y + 40 }, 10.f, { 255, 0, 0, 255 }));
@@ -310,16 +310,16 @@ void MainThread()
 				Data.localPlayer->OrbitCamMaxZoomLevel = 5000;
 			}
 
-			////rapid fire
-			//if (Data.Settings.rapidFire && Data.localPlayer)
-			//{
-			//	auto Zoom = Data.localPlayer->CurrentWeapon;
-			//	if (Zoom) 
-			//	{
-			//		Zoom->WeaponConfig.TimeBetweenShots = 0.01;
-			//		if (Zoom->LastFireTime == 0) Zoom->LastFireTime = Zoom->LastFireTime + Zoom->LastNotifyShotTime - Zoom->WeaponConfig.TimeBetweenShots;
-			//	}
-			//}
+			//rapid fire
+			if (Data.Settings.rapidFire && Data.localPlayer)
+			{
+				auto Zoom = Data.localPlayer->CurrentWeapon;
+				if (Zoom) 
+				{
+					Zoom->WeaponConfig.TimeBetweenShots = Data.Settings.rapidFireMulti;
+					if (Zoom->LastFireTime == 0) Zoom->LastFireTime = Zoom->LastFireTime + Zoom->LastNotifyShotTime - Zoom->WeaponConfig.TimeBetweenShots;
+				}
+			}
 
 			//instant turn
 			if (Data.Settings.instantTurn && Data.localPlayer) {
@@ -406,6 +406,7 @@ void hkPostRender(CG::UShooterGameViewportClient* viewport, CG::UCanvas* canvas)
 	}
 	for (int i = 0; i < Data.DrawTextQueue.size(); i++)
 	{
+		//Data.pHud->DrawTextW(Data.DrawTextQueue.at(i).RenderText, Data.DrawTextQueue.at(i).RenderColor, Data.DrawTextQueue.at(i).ScreenPosition.X, Data.DrawTextQueue.at(i).ScreenPosition.Y, Data.DrawTextQueue.at(i).RenderFont, 1, false);
 		canvas->K2_DrawText(Data.DrawTextQueue.at(i).RenderFont, Data.DrawTextQueue.at(i).RenderText, Data.DrawTextQueue.at(i).ScreenPosition, Data.DrawTextQueue.at(i).RenderColor, Data.DrawTextQueue.at(i).Kerning, Data.DrawTextQueue.at(i).ShadowColor, Data.DrawTextQueue.at(i).ShadowOffset, Data.DrawTextQueue.at(i).bCentreX, Data.DrawTextQueue.at(i).bCentreY, Data.DrawTextQueue.at(i).bOutlined, Data.DrawTextQueue.at(i).OutlineColor);
 	}
 	//dont put any logic here, will cause crashes

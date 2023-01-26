@@ -18100,12 +18100,12 @@ namespace CG
 	{
 	public:
 		float                                                      EquipTime;                                               // 0x0470(0x0004) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_GFEO[0x4];                                   // 0x0474(0x0004) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
-		class UClass*                                              OverridePawnTPVAnimBlueprint;                            // 0x0478(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		class UAnimMontage*                                        OverrideProneInAnim;                                     // 0x0480(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		class UAnimMontage*                                        OverrideProneOutAnim;                                    // 0x0488(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		class UAnimMontage*                                        OverrideJumpAnim;                                        // 0x0490(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		class UAnimMontage*                                        OverrideLandedAnim;                                      // 0x0498(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		unsigned char                                              UnknownData_O1I8[0x4];                                   // 0x0474(0x0004) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		class UClass* OverridePawnTPVAnimBlueprint;                            // 0x0478(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		class UAnimMontage* OverrideProneInAnim;                                     // 0x0480(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		class UAnimMontage* OverrideProneOutAnim;                                    // 0x0488(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		class UAnimMontage* OverrideJumpAnim;                                        // 0x0490(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		class UAnimMontage* OverrideLandedAnim;                                      // 0x0498(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		TArray<class UAnimSequence*>                               OverrideRiderAnimSequenceFrom;                           // 0x04A0(0x0010) Edit, ZeroConstructor, DisableEditOnInstance
 		TArray<class UAnimSequence*>                               OverrideRiderAnimSequenceTo;                             // 0x04B0(0x0010) Edit, ZeroConstructor, DisableEditOnInstance
 		struct FCanvasIcon                                         PrimaryIcon;                                             // 0x04C0(0x0018) Edit, DisableEditOnInstance
@@ -18116,15 +18116,15 @@ namespace CG
 		float                                                      AmmoIconsCount;                                          // 0x0524(0x0004) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		float                                                      TargetingTooltipCheckRange;                              // 0x0528(0x0004) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		bool                                                       bUseDinoRangeForTooltip : 1;                             // 0x052C(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
-		unsigned char                                              UnknownData_P98M[0x3];                                   // 0x052D(0x0003) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_I4YM[0x3];                                   // 0x052D(0x0003) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		int32_t                                                    PrimaryClipIconOffset;                                   // 0x0530(0x0004) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		int32_t                                                    SecondaryClipIconOffset;                                 // 0x0534(0x0004) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		class UClass*                                              TargetingInfoToolTipWidget;                              // 0x0538(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		class UClass* TargetingInfoToolTipWidget;                              // 0x0538(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		struct FVector2D                                           TargetingInfoTooltipPadding;                             // 0x0540(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		struct FVector2D                                           TargetingInfoTooltipScale;                               // 0x0548(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		bool                                                       bOnlyPassiveDurabilityWhenAccessoryActive;               // 0x0550(0x0001) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		bool                                                       bDisableShooterOnElectricStorm;                          // 0x0551(0x0001) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_535U[0x2];                                   // 0x0552(0x0002) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_CJ3P[0x2];                                   // 0x0552(0x0002) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		class FName                                                OverrideAttachPoint;                                     // 0x0554(0x0008) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
 		struct FVector                                             FPVRelativeLocation;                                     // 0x055C(0x000C) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
 		struct FRotator                                            FPVRelativeRotation;                                     // 0x0568(0x000C) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
@@ -18142,63 +18142,63 @@ namespace CG
 		struct FVector                                             FPVImmobilizedLocationOffset;                            // 0x05E0(0x000C) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
 		struct FRotator                                            FPVImmobilizedRotationOffset;                            // 0x05EC(0x000C) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
 		float                                                      FPVImmobilizedInterpSpeed;                               // 0x05F8(0x0004) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_1GPF[0x4];                                   // 0x05FC(0x0004) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_37H0[0x4];                                   // 0x05FC(0x0004) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		bool                                                       bUseBlueprintAnimNotifications;                          // 0x0600(0x0001) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_VEA6[0x7];                                   // 0x0601(0x0007) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_VRMW[0x7];                                   // 0x0601(0x0007) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		TArray<class FName>                                        MeleeSwingSockets;                                       // 0x0608(0x0010) Edit, ZeroConstructor, DisableEditOnInstance
 		float                                                      AllowMeleeTimeBeforeAnimationEnd;                        // 0x0618(0x0004) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_1Q94[0x4];                                   // 0x061C(0x0004) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
-		class UPrimalItem*                                         AssociatedPrimalItem;                                    // 0x0620(0x0008) ZeroConstructor, SaveGame, IsPlainOldData, NoDestructor
-		class AMissionType*                                        AssociatedMission;                                       // 0x0628(0x0008) Net, ZeroConstructor, Transient, IsPlainOldData, NoDestructor
+		unsigned char                                              UnknownData_XOP1[0x4];                                   // 0x061C(0x0004) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		class UPrimalItem* AssociatedPrimalItem;                                    // 0x0620(0x0008) ZeroConstructor, SaveGame, IsPlainOldData, NoDestructor
+		class AMissionType* AssociatedMission;                                       // 0x0628(0x0008) Net, ZeroConstructor, Transient, IsPlainOldData, NoDestructor
 		bool                                                       bCanBeUsedAsEquipment;                                   // 0x0630(0x0001) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_ED6O[0x7];                                   // 0x0631(0x0007) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_Z7AG[0x7];                                   // 0x0631(0x0007) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		struct FItemNetInfo                                        AssociatedItemNetInfo;                                   // 0x0638(0x01B0) Net, Transient, RepNotify
-		class USkeletalMeshComponent*                              Mesh3P;                                                  // 0x07E8(0x0008) Edit, ExportObject, ZeroConstructor, DisableEditOnInstance, EditConst, InstancedReference, SubobjectReference, IsPlainOldData, NoDestructor
-		class UClass*                                              WeaponAmmoItemTemplate;                                  // 0x07F0(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		class ACameraActor*                                        AnimatedCamera;                                          // 0x07F8(0x0008) ZeroConstructor, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_BSYV[0x8];                                   // 0x0800(0x0008) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
-		struct FWeaponData                                         WeaponConfig;                                            // 0x0808(0x002C) Edit, DisableEditOnInstance
-		unsigned char                                              UnknownData_BDXT[0x74];                                  // 0x0834(0x0074) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
-		class AShooterCharacter*                                   MyPawn;                                                  // 0x08A8(0x0008) Net, ZeroConstructor, Transient, SaveGame, IsPlainOldData, RepNotify, NoDestructor
-		class USkeletalMeshComponent*                              Mesh1P;                                                  // 0x08B0(0x0008) Edit, ExportObject, ZeroConstructor, DisableEditOnInstance, EditConst, InstancedReference, SubobjectReference, IsPlainOldData, NoDestructor
-		class UAudioComponent*                                     FireAC;                                                  // 0x08B8(0x0008) ExportObject, ZeroConstructor, Transient, InstancedReference, IsPlainOldData, NoDestructor
+		class USkeletalMeshComponent* Mesh3P;                                                  // 0x07E8(0x0008) Edit, ExportObject, ZeroConstructor, DisableEditOnInstance, EditConst, InstancedReference, SubobjectReference, IsPlainOldData, NoDestructor
+		class UClass* WeaponAmmoItemTemplate;                                  // 0x07F0(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		class ACameraActor* AnimatedCamera;                                          // 0x07F8(0x0008) ZeroConstructor, IsPlainOldData, NoDestructor
+		unsigned char                                              UnknownData_JEHZ[0x28];                                  // 0x0800(0x0028) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		struct FWeaponData                                         WeaponConfig;                                            // 0x0828(0x002C) Edit, DisableEditOnInstance
+		unsigned char                                              UnknownData_JZSG[0x54];                                  // 0x0854(0x0054) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		class AShooterCharacter* MyPawn;                                                  // 0x08A8(0x0008) Net, ZeroConstructor, Transient, SaveGame, IsPlainOldData, RepNotify, NoDestructor
+		class USkeletalMeshComponent* Mesh1P;                                                  // 0x08B0(0x0008) Edit, ExportObject, ZeroConstructor, DisableEditOnInstance, EditConst, InstancedReference, SubobjectReference, IsPlainOldData, NoDestructor
+		class UAudioComponent* FireAC;                                                  // 0x08B8(0x0008) ExportObject, ZeroConstructor, Transient, InstancedReference, IsPlainOldData, NoDestructor
 		class FName                                                MuzzleAttachPoint;                                       // 0x08C0(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		class UParticleSystem*                                     MuzzleFX;                                                // 0x08C8(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		class UParticleSystem*                                     MuzzleFX_FPV;                                            // 0x08D0(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		class UParticleSystem*                                     AltMuzzleFX;                                             // 0x08D8(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		class UParticleSystem*                                     AltMuzzleFX_FPV;                                         // 0x08E0(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		class UParticleSystemComponent*                            MuzzlePSC;                                               // 0x08E8(0x0008) ExportObject, ZeroConstructor, Transient, InstancedReference, IsPlainOldData, NoDestructor
-		class UParticleSystemComponent*                            MuzzlePSCSecondary;                                      // 0x08F0(0x0008) ExportObject, ZeroConstructor, Transient, InstancedReference, IsPlainOldData, NoDestructor
-		class UClass*                                              FireCameraShake;                                         // 0x08F8(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		class UClass*                                              ReloadCameraShake;                                       // 0x0900(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		class UClass*                                              MeleeCameraShake;                                        // 0x0908(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		class UForceFeedbackEffect*                                FireForceFeedback;                                       // 0x0910(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		class USoundCue*                                           FireSound;                                               // 0x0918(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		class USoundCue*                                           AltFireSound;                                            // 0x0920(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		class USoundCue*                                           FireFinishSound;                                         // 0x0928(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		class USoundCue*                                           OutOfAmmoSound;                                          // 0x0930(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		class UParticleSystem* MuzzleFX;                                                // 0x08C8(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		class UParticleSystem* MuzzleFX_FPV;                                            // 0x08D0(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		class UParticleSystem* AltMuzzleFX;                                             // 0x08D8(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		class UParticleSystem* AltMuzzleFX_FPV;                                         // 0x08E0(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		class UParticleSystemComponent* MuzzlePSC;                                               // 0x08E8(0x0008) ExportObject, ZeroConstructor, Transient, InstancedReference, IsPlainOldData, NoDestructor
+		class UParticleSystemComponent* MuzzlePSCSecondary;                                      // 0x08F0(0x0008) ExportObject, ZeroConstructor, Transient, InstancedReference, IsPlainOldData, NoDestructor
+		class UClass* FireCameraShake;                                         // 0x08F8(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		class UClass* ReloadCameraShake;                                       // 0x0900(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		class UClass* MeleeCameraShake;                                        // 0x0908(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		class UForceFeedbackEffect* FireForceFeedback;                                       // 0x0910(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		class USoundCue* FireSound;                                               // 0x0918(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		class USoundCue* AltFireSound;                                            // 0x0920(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		class USoundCue* FireFinishSound;                                         // 0x0928(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		class USoundCue* OutOfAmmoSound;                                          // 0x0930(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		int32_t                                                    MeleeDamageAmount;                                       // 0x0938(0x0004) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
 		float                                                      TheMeleeSwingRadius;                                     // 0x093C(0x0004) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
 		float                                                      MeleeDamageImpulse;                                      // 0x0940(0x0004) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_1TPG[0x4];                                   // 0x0944(0x0004) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_1BW1[0x4];                                   // 0x0944(0x0004) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		struct FWeaponAnim                                         ReloadAnim;                                              // 0x0948(0x0010) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		struct FWeaponAnim                                         PartialReloadAnim;                                       // 0x0958(0x0010) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		class UAnimMontage*                                        WeaponMesh3PReloadAnim;                                  // 0x0968(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		class UAnimMontage* WeaponMesh3PReloadAnim;                                  // 0x0968(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		struct FWeaponAnim                                         HarvestAnim;                                             // 0x0970(0x0010) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		struct FWeaponAnim                                         WeaponBreakAnim;                                         // 0x0980(0x0010) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		class USoundCue*                                           EquipSound;                                              // 0x0990(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		class USoundCue* EquipSound;                                              // 0x0990(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		struct FWeaponAnim                                         EquipAnim;                                               // 0x0998(0x0010) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		struct FWeaponAnim                                         EquipNoAmmoClipAnim;                                     // 0x09A8(0x0010) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		struct FWeaponAnim                                         UnequipAnim;                                             // 0x09B8(0x0010) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		struct FWeaponAnim                                         UnequipNoAmmoClipAnim;                                   // 0x09C8(0x0010) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		class UAnimMontage*                                        WeaponMesh3PFireAnim;                                    // 0x09D8(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		class UAnimMontage* WeaponMesh3PFireAnim;                                    // 0x09D8(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		struct FWeaponAnim                                         FireAnim;                                                // 0x09E0(0x0010) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		struct FWeaponAnim                                         MeleeAnim;                                               // 0x09F0(0x0010) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		struct FWeaponAnim                                         MeleeNoAmmoClipAnim;                                     // 0x0A00(0x0010) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		TArray<struct FWeaponAnim>                                 MeleeAnimList;                                           // 0x0A10(0x0010) Edit, ZeroConstructor, DisableEditOnInstance
 		bool                                                       bOnlyUseFirstMeleeAnimWithShield : 1;                    // 0x0A20(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bForceShowCrosshairWhileFiring : 1;                      // 0x0A20(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
-		unsigned char                                              UnknownData_TONW[0x7];                                   // 0x0A21(0x0007) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_8LH2[0x7];                                   // 0x0A21(0x0007) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		TArray<struct FWeaponAnim>                                 MeleeWithHitAnimList;                                    // 0x0A28(0x0010) Edit, ZeroConstructor, DisableEditOnInstance
 		struct FWeaponAnim                                         ShieldHitAnim;                                           // 0x0A38(0x0010) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		float                                                      FPVMoveOffscreenWhenTurningMaxMoveWeaponSpeed;           // 0x0A48(0x0004) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
@@ -18208,10 +18208,10 @@ namespace CG
 		float                                                      FPVMoveOffscreenIdleRestoreInterval;                     // 0x0A58(0x0004) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		float                                                      FPVMoveOffscreenIdleRestoreSpeed;                        // 0x0A5C(0x0004) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		float                                                      FPVMoveOffscreenWhenTurningMaxOffset;                    // 0x0A60(0x0004) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_YGQO[0xC];                                   // 0x0A64(0x000C) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_2UI8[0xC];                                   // 0x0A64(0x000C) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		struct FWeaponAnim                                         TargetingFireAnim;                                       // 0x0A70(0x0010) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		bool                                                       bAllowSubmergedFiring : 1;                               // 0x0A80(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
-		bool                                                       UnknownData_XYZQ : 4;                                    // 0x0A80(0x0001) BIT_FIELD (PADDING)
+		bool                                                       UnknownData_QDIZ : 4;                                    // 0x0A80(0x0001) BIT_FIELD (PADDING)
 		bool                                                       bHideFPVMesh : 1;                                        // 0x0A80(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bForceTargeting : 1;                                     // 0x0A80(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bCanAltFire : 1;                                         // 0x0A80(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
@@ -18234,29 +18234,29 @@ namespace CG
 		bool                                                       bAllowTargetingWhileReloading : 1;                       // 0x0A83(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bMeleeHitColorizesStructures : 1;                        // 0x0A83(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bLoopedFireAnim : 1;                                     // 0x0A83(0x0001) BIT_FIELD Transient, NoDestructor
-		bool                                                       UnknownData_QQQX : 2;                                    // 0x0A83(0x0001) BIT_FIELD (PADDING)
+		bool                                                       UnknownData_8CNL : 2;                                    // 0x0A83(0x0001) BIT_FIELD (PADDING)
 		bool                                                       bAutoRefire : 1;                                         // 0x0A83(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bConsumeAmmoOnUseAmmo : 1;                               // 0x0A83(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bTargetUnTargetWithClick : 1;                            // 0x0A83(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bDontActuallyConsumeItemAmmo : 1;                        // 0x0A84(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bBPUseWeaponCanFire : 1;                                 // 0x0A84(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bBPUseTargetingEvents : 1;                               // 0x0A84(0x0001) BIT_FIELD Edit, NoDestructor
-		bool                                                       UnknownData_8KVA : 1;                                    // 0x0A84(0x0001) BIT_FIELD (PADDING)
+		bool                                                       UnknownData_1TDO : 1;                                    // 0x0A84(0x0001) BIT_FIELD (PADDING)
 		bool                                                       bWantsToFire : 1;                                        // 0x0A84(0x0001) BIT_FIELD BlueprintVisible, NoDestructor
 		bool                                                       bWantsToAltFire : 1;                                     // 0x0A84(0x0001) BIT_FIELD BlueprintVisible, NoDestructor
-		bool                                                       UnknownData_1LUK : 2;                                    // 0x0A84(0x0001) BIT_FIELD (PADDING)
-		bool                                                       UnknownData_49KX : 3;                                    // 0x0A85(0x0001) BIT_FIELD (PADDING)
+		bool                                                       UnknownData_NIMZ : 2;                                    // 0x0A84(0x0001) BIT_FIELD (PADDING)
+		bool                                                       UnknownData_XCI0 : 3;                                    // 0x0A85(0x0001) BIT_FIELD (PADDING)
 		bool                                                       bUseAmmoOnFiring : 1;                                    // 0x0A85(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bUseAmmoServerOnly : 1;                                  // 0x0A85(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bListenToAppliedForeces : 1;                             // 0x0A85(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
-		unsigned char                                              UnknownData_ONU6[0x2];                                   // 0x0A86(0x0002) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_AIEL[0x2];                                   // 0x0A86(0x0002) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		bool                                                       bOverrideAimOffsets : 1;                                 // 0x0A88(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
-		unsigned char                                              UnknownData_2L9W[0x3];                                   // 0x0A89(0x0003) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_RHWV[0x3];                                   // 0x0A89(0x0003) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		float                                                      ItemDestructionUnequipWeaponDelay;                       // 0x0A8C(0x0004) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		float                                                      WeaponUnequipDelay;                                      // 0x0A90(0x0004) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_V11I[0x4];                                   // 0x0A94(0x0004) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_LK54[0x4];                                   // 0x0A94(0x0004) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		struct FWeaponAnim                                         TargetingReloadAnim;                                     // 0x0A98(0x0010) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_AG64[0x8];                                   // 0x0AA8(0x0008) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_FDBX[0x8];                                   // 0x0AA8(0x0008) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		double                                                     LastFireTime;                                            // 0x0AB0(0x0008) ZeroConstructor, Transient, IsPlainOldData, NoDestructor
 		int32_t                                                    CurrentAmmo;                                             // 0x0AB8(0x0004) BlueprintVisible, BlueprintReadOnly, Net, ZeroConstructor, Transient, SaveGame, IsPlainOldData, NoDestructor
 		int32_t                                                    CurrentAmmoInClip;                                       // 0x0ABC(0x0004) BlueprintVisible, BlueprintReadOnly, Net, ZeroConstructor, Transient, SaveGame, IsPlainOldData, RepNotify, NoDestructor
@@ -18281,39 +18281,39 @@ namespace CG
 		bool                                                       bWantsToAutoReload : 1;                                  // 0x0AD4(0x0001) BIT_FIELD BlueprintVisible, BlueprintReadOnly, Transient, NoDestructor
 		bool                                                       bHasPlayedReload : 1;                                    // 0x0AD4(0x0001) BIT_FIELD BlueprintVisible, BlueprintReadOnly, Transient, NoDestructor
 		bool                                                       bNetLoopedSimulatingWeaponFire : 1;                      // 0x0AD4(0x0001) BIT_FIELD Net, Transient, RepNotify, NoDestructor
-		bool                                                       UnknownData_0174 : 1;                                    // 0x0AD4(0x0001) BIT_FIELD (PADDING)
+		bool                                                       UnknownData_4UJW : 1;                                    // 0x0AD4(0x0001) BIT_FIELD (PADDING)
 		bool                                                       bBPHandleMeleeAttack : 1;                                // 0x0AD5(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bUseBPShouldDealDamage : 1;                              // 0x0AD5(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bDoesntUsePrimalItem : 1;                                // 0x0AD5(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bUseCanAccessoryBeSetOn : 1;                             // 0x0AD5(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bUseBPGetActorForTargetingTooltip : 1;                   // 0x0AD5(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bUseBPOverrideAimDirection : 1;                          // 0x0AD5(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
-		unsigned char                                              UnknownData_B6IZ[0x2];                                   // 0x0AD6(0x0002) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_V5WU[0x2];                                   // 0x0AD6(0x0002) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		bool                                                       bUseBPIsValidUnstasisActor : 1;                          // 0x0AD8(0x0001) BIT_FIELD Edit, BlueprintVisible, NoDestructor
-		unsigned char                                              UnknownData_7EH8[0x3];                                   // 0x0AD9(0x0003) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_S87R[0x3];                                   // 0x0AD9(0x0003) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		float                                                      TimeToAutoReload;                                        // 0x0ADC(0x0004) Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, Transient, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		class USoundBase*                                          ToggleAccessorySound;                                    // 0x0AE0(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		class USoundBase* ToggleAccessorySound;                                    // 0x0AE0(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		int32_t                                                    FiredLastNoAmmoShot;                                     // 0x0AE8(0x0004) ZeroConstructor, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_81O2[0x4];                                   // 0x0AEC(0x0004) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_0IP6[0x4];                                   // 0x0AEC(0x0004) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		double                                                     LastNotifyShotTime;                                      // 0x0AF0(0x0008) ZeroConstructor, IsPlainOldData, NoDestructor
 		bool                                                       bLoopingSimulateWeaponFire : 1;                          // 0x0AF8(0x0001) BIT_FIELD Transient, NoDestructor
-		bool                                                       UnknownData_32C6 : 1;                                    // 0x0AF8(0x0001) BIT_FIELD (PADDING)
+		bool                                                       UnknownData_A5W8 : 1;                                    // 0x0AF8(0x0001) BIT_FIELD (PADDING)
 		bool                                                       bUseBPCanMeleeAttack : 1;                                // 0x0AF8(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
-		unsigned char                                              UnknownData_HG7M[0x7];                                   // 0x0AF9(0x0007) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
-		class UClass*                                              MeleeDamageType;                                         // 0x0B00(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		unsigned char                                              UnknownData_SJNK[0x7];                                   // 0x0AF9(0x0007) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		class UClass* MeleeDamageType;                                         // 0x0B00(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		bool                                                       bClientTriggersHandleFiring : 1;                         // 0x0B08(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bAllowUseHarvesting : 1;                                 // 0x0B08(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bPreventItemColors : 1;                                  // 0x0B08(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bUseBPGetSelectedMeleeAttackAnim : 1;                    // 0x0B08(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bUseBPWeaponDealDamage : 1;                              // 0x0B08(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
-		unsigned char                                              UnknownData_KPWS[0x3];                                   // 0x0B09(0x0003) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_9JG0[0x3];                                   // 0x0B09(0x0003) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		bool                                                       bUseBPOnWeaponAnimPlayedNotify : 1;                      // 0x0B0C(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
-		unsigned char                                              UnknownData_9TAV[0x3];                                   // 0x0B0D(0x0003) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_025B[0x3];                                   // 0x0B0D(0x0003) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		struct FVector                                             VRTargetingModelOffset;                                  // 0x0B10(0x000C) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		struct FVector                                             VRTargetingAimOriginOffset;                              // 0x0B1C(0x000C) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		class UMaterialInterface*                                  ScopeOverlayMI;                                          // 0x0B28(0x0008) Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor
-		class UMaterialInterface*                                  ScopeCrosshairMI;                                        // 0x0B30(0x0008) Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor
-		class UMaterialInstanceDynamic*                            ScopeCrosshairMID;                                       // 0x0B38(0x0008) ZeroConstructor, Transient, IsPlainOldData, NoDestructor
+		class UMaterialInterface* ScopeOverlayMI;                                          // 0x0B28(0x0008) Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor
+		class UMaterialInterface* ScopeCrosshairMI;                                        // 0x0B30(0x0008) Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor
+		class UMaterialInstanceDynamic* ScopeCrosshairMID;                                       // 0x0B38(0x0008) ZeroConstructor, Transient, IsPlainOldData, NoDestructor
 		float                                                      ScopeCrosshairSize;                                      // 0x0B40(0x0004) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		class FName                                                ScopeCrosshairColorParameter;                            // 0x0B44(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		bool                                                       bColorCrosshairBasedOnTarget : 1;                        // 0x0B4C(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
@@ -18322,9 +18322,9 @@ namespace CG
 		bool                                                       bAllowDropAndPickup : 1;                                 // 0x0B4C(0x0001) BIT_FIELD Edit, NoDestructor
 		bool                                                       bApplyAimDriftWhenTargeting : 1;                         // 0x0B4C(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bUseScopeOverlay : 1;                                    // 0x0B4C(0x0001) BIT_FIELD Edit, NoDestructor
-		unsigned char                                              UnknownData_XR9W[0x3];                                   // 0x0B4D(0x0003) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_30B0[0x3];                                   // 0x0B4D(0x0003) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		bool                                                       bHideFPVMeshWhileTargeting : 1;                          // 0x0B50(0x0001) BIT_FIELD Edit, NoDestructor
-		unsigned char                                              UnknownData_GUEG[0x3];                                   // 0x0B51(0x0003) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_80P3[0x3];                                   // 0x0B51(0x0003) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		bool                                                       bGamepadRightIsSecondaryAction : 1;                      // 0x0B54(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bGamepadLeftIsPrimaryFire : 1;                           // 0x0B54(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bDirectPrimaryFireToAltFire : 1;                         // 0x0B54(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
@@ -18357,7 +18357,7 @@ namespace CG
 		bool                                                       bUseBPStartEquippedNotify : 1;                           // 0x0B5C(0x0001) BIT_FIELD Edit, NoDestructor
 		bool                                                       bDirectPrimaryFireToSecondaryAction : 1;                 // 0x0B5C(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bUseAlternateAimOffset : 1;                              // 0x0B5C(0x0001) BIT_FIELD Edit, BlueprintVisible, NoDestructor
-		unsigned char                                              UnknownData_N8IF[0x3];                                   // 0x0B5D(0x0003) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_QNRI[0x3];                                   // 0x0B5D(0x0003) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		float                                                      OverrideTargetingFOV;                                    // 0x0B60(0x0004) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
 		float                                                      TargetingDelayTime;                                      // 0x0B64(0x0004) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
 		float                                                      TargetingFOVInterpSpeed;                                 // 0x0B68(0x0004) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
@@ -18365,8 +18365,8 @@ namespace CG
 		float                                                      AimDriftPitchAngle;                                      // 0x0B70(0x0004) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
 		float                                                      AimDriftYawFrequency;                                    // 0x0B74(0x0004) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
 		float                                                      AimDriftPitchFrequency;                                  // 0x0B78(0x0004) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_7V8W[0x4];                                   // 0x0B7C(0x0004) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
-		class UAnimMontage*                                        AlternateInventoryEquipAnim;                             // 0x0B80(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		unsigned char                                              UnknownData_7QDJ[0x4];                                   // 0x0B7C(0x0004) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		class UAnimMontage* AlternateInventoryEquipAnim;                             // 0x0B80(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		struct FWeaponAnim                                         OpenInventoryAnim;                                       // 0x0B88(0x0010) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		float                                                      MeleeHitRandomChanceToDestroyItem;                       // 0x0B98(0x0004) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
 		float                                                      GlobalFireCameraShakeScale;                              // 0x0B9C(0x0004) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
@@ -18377,23 +18377,23 @@ namespace CG
 		float                                                      MeleeCameraShakeSpeedScale;                              // 0x0BB0(0x0004) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
 		float                                                      ReloadCameraShakeSpeedScale;                             // 0x0BB4(0x0004) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
 		float                                                      MeleeConsumesStamina;                                    // 0x0BB8(0x0004) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_ZZSB[0x4];                                   // 0x0BBC(0x0004) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
-		class UClass*                                              MeleeHitTargetCameraShake;                               // 0x0BC0(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		class UClass*                                              MeleeHitTargetCameraShakeMobile;                         // 0x0BC8(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		class UClass*                                              MeleeHitColorizeStructuresUI;                            // 0x0BD0(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		unsigned char                                              UnknownData_RGHG[0x4];                                   // 0x0BBC(0x0004) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		class UClass* MeleeHitTargetCameraShake;                               // 0x0BC0(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		class UClass* MeleeHitTargetCameraShakeMobile;                         // 0x0BC8(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		class UClass* MeleeHitColorizeStructuresUI;                            // 0x0BD0(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		float                                                      HypoThermiaInsulation;                                   // 0x0BD8(0x0004) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		float                                                      HyperThermiaInsulation;                                  // 0x0BDC(0x0004) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		float                                                      InsulationRange;                                         // 0x0BE0(0x0004) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_42VU[0x1C];                                  // 0x0BE4(0x001C) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
-		class USoundCue*                                           TargetingSound;                                          // 0x0C00(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		class USoundCue*                                           UntargetingSound;                                        // 0x0C08(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		unsigned char                                              UnknownData_XUXA[0x1C];                                  // 0x0BE4(0x001C) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		class USoundCue* TargetingSound;                                          // 0x0C00(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		class USoundCue* UntargetingSound;                                        // 0x0C08(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		float                                                      FPVMeleeTraceFXRange;                                    // 0x0C10(0x0004) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_U8VZ[0x4];                                   // 0x0C14(0x0004) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
-		class UClass*                                              MeleeAttackUsableHarvestDamageType;                      // 0x0C18(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		unsigned char                                              UnknownData_N4S9[0x4];                                   // 0x0C14(0x0004) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		class UClass* MeleeAttackUsableHarvestDamageType;                      // 0x0C18(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		float                                                      MeleeAttackHarvetUsableComponentsRadius;                 // 0x0C20(0x0004) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		float                                                      MeleeAttackUsableHarvestDamageMultiplier;                // 0x0C24(0x0004) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_2TZ1[0x58];                                  // 0x0C28(0x0058) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
-		class UAnimMontage*                                        TPVForcePlayAnim;                                        // 0x0C80(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		unsigned char                                              UnknownData_AKZU[0x58];                                  // 0x0C28(0x0058) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		class UAnimMontage* TPVForcePlayAnim;                                        // 0x0C80(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		bool                                                       bPreventOpeningInventory;                                // 0x0C88(0x0001) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		bool                                                       bAllowUseOnSeatingStructure;                             // 0x0C89(0x0001) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		bool                                                       bOnlyUseOnSeatingStructure;                              // 0x0C8A(0x0001) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
@@ -18416,63 +18416,63 @@ namespace CG
 		bool                                                       bPreventCarriedZoomInOut : 1;                            // 0x0C8D(0x0001) BIT_FIELD Edit, BlueprintVisible, NoDestructor
 		bool                                                       bInstantAccuracyReset : 1;                               // 0x0C8D(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bForceAlwaysPlayEquipAnim : 1;                           // 0x0C8D(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
-		unsigned char                                              UnknownData_UY4N[0x2];                                   // 0x0C8E(0x0002) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_MA8Y[0x2];                                   // 0x0C8E(0x0002) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		bool                                                       bIgnoreReloadState : 1;                                  // 0x0C90(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bUseBPPostSpawnMuzzleEffect : 1;                         // 0x0C90(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
-		unsigned char                                              UnknownData_P0HF[0x3];                                   // 0x0C91(0x0003) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_URCR[0x3];                                   // 0x0C91(0x0003) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		bool                                                       bUseBPGetCrosshairColor : 1;                             // 0x0C94(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bIgnorePlayerReload : 1;                                 // 0x0C94(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
-		unsigned char                                              UnknownData_PHNB[0x3];                                   // 0x0C95(0x0003) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
-		bool                                                       UnknownData_6CQL : 1;                                    // 0x0C98(0x0001) BIT_FIELD (PADDING)
+		unsigned char                                              UnknownData_07MQ[0x3];                                   // 0x0C95(0x0003) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		bool                                                       UnknownData_A6XV : 1;                                    // 0x0C98(0x0001) BIT_FIELD (PADDING)
 		bool                                                       bUseBPOnBurstStarted : 1;                                // 0x0C98(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bUseBPOnBurstFinished : 1;                               // 0x0C98(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bUseBurstStartAnim : 1;                                  // 0x0C98(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bUseBurstFinishAnim : 1;                                 // 0x0C98(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bSecondaryActionStopsFire : 1;                           // 0x0C98(0x0001) BIT_FIELD Edit, DisableEditOnInstance, NoDestructor
 		bool                                                       bUseAmmoSupportsAdjustedAmmoPerShot : 1;                 // 0x0C98(0x0001) BIT_FIELD Edit, NoDestructor
-		unsigned char                                              UnknownData_V31N[0x3];                                   // 0x0C99(0x0003) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_WI0I[0x3];                                   // 0x0C99(0x0003) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		bool                                                       bBPDoClientCheckCanFire;                                 // 0x0C9C(0x0001) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		bool                                                       bRestrictTPVCameraYaw;                                   // 0x0C9D(0x0001) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_IL4V[0x2];                                   // 0x0C9E(0x0002) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_8P8T[0x2];                                   // 0x0C9E(0x0002) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		float                                                      TPVCameraYawRange;                                       // 0x0CA0(0x0004) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		bool                                                       bFoceSimulatedTick;                                      // 0x0CA4(0x0001) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		bool                                                       bWasLastFireFromGamePad;                                 // 0x0CA5(0x0001) BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor
 		bool                                                       bDisableWeaponCrosshair;                                 // 0x0CA6(0x0001) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_1V2G[0x1];                                   // 0x0CA7(0x0001) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
-		class USkeletalMesh*                                       DyePreviewMeshOverrideSK;                                // 0x0CA8(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		class UStaticMesh*                                         DyePreviewMeshOverrideSM;                                // 0x0CB0(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		unsigned char                                              UnknownData_IEP3[0x1];                                   // 0x0CA7(0x0001) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		class USkeletalMesh* DyePreviewMeshOverrideSK;                                // 0x0CA8(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		class UStaticMesh* DyePreviewMeshOverrideSM;                                // 0x0CB0(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		bool                                                       bBPOverrideAspectRatio;                                  // 0x0CB8(0x0001) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		bool                                                       bBPOverrideFPVMasterPoseComponent;                       // 0x0CB9(0x0001) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		bool                                                       bForceAllowMountedWeaponry;                              // 0x0CBA(0x0001) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_L6E4[0x1];                                   // 0x0CBB(0x0001) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_TSC3[0x1];                                   // 0x0CBB(0x0001) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		float                                                      FireCameraShakeSpreadScaleExponent;                      // 0x0CBC(0x0004) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
 		float                                                      FireCameraShakeSpreadScaleExponentLessThan;              // 0x0CC0(0x0004) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
 		float                                                      FireCameraShakeSpreadScaleMultiplierLessThan;            // 0x0CC4(0x0004) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
 		float                                                      FireCameraShakeSpreadScaleMultiplier;                    // 0x0CC8(0x0004) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
 		bool                                                       bUseFireCameraShakeScale;                                // 0x0CCC(0x0001) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		bool                                                       bForceTickWithNoController;                              // 0x0CCD(0x0001) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_JAB9[0x2];                                   // 0x0CCE(0x0002) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_APLL[0x2];                                   // 0x0CCE(0x0002) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		struct FInstantWeaponData                                  InstantConfig;                                           // 0x0CD0(0x0030) Edit, DisableEditOnInstance
 		float                                                      CurrentFiringSpread;                                     // 0x0D00(0x0004) BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_78EN[0x4];                                   // 0x0D04(0x0004) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
-		class UClass*                                              ScopedBuff;                                              // 0x0D08(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_KZYT[0x8];                                   // 0x0D10(0x0008) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
-		class UAnimSequence*                                       OverrideTPVShieldAnimation;                              // 0x0D18(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		unsigned char                                              UnknownData_QKBZ[0x4];                                   // 0x0D04(0x0004) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		class UClass* ScopedBuff;                                              // 0x0D08(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
+		unsigned char                                              UnknownData_Q3UY[0x8];                                   // 0x0D10(0x0008) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		class UAnimSequence* OverrideTPVShieldAnimation;                              // 0x0D18(0x0008) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		bool                                                       bAllowTargetingDuringMeleeSwing;                         // 0x0D20(0x0001) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_Y580[0x3];                                   // 0x0D21(0x0003) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_A29X[0x3];                                   // 0x0D21(0x0003) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		struct FVector                                             FPVMuzzleLocationOffset;                                 // 0x0D24(0x000C) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		struct FVector                                             TPVMuzzleLocationOffset;                                 // 0x0D30(0x000C) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		bool                                                       bForceTPV_EquippedWhileRiding;                           // 0x0D3C(0x0001) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
 		bool                                                       bCutsEnemyGrapplingCable;                                // 0x0D3D(0x0001) Edit, ZeroConstructor, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_9XY8[0x2];                                   // 0x0D3E(0x0002) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_BVQ7[0x2];                                   // 0x0D3E(0x0002) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		struct FVector                                             FPVInventoryReequipOffset;                               // 0x0D40(0x000C) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_3JRX[0x10];                                  // 0x0D4C(0x0010) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_JLMY[0x10];                                  // 0x0D4C(0x0010) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		bool                                                       bForceTPVCameraOffset;                                   // 0x0D5C(0x0001) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		bool                                                       bUseBPSpawnMeleeEffects;                                 // 0x0D5D(0x0001) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_G6GU[0x2];                                   // 0x0D5E(0x0002) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
+		unsigned char                                              UnknownData_KG8S[0x2];                                   // 0x0D5E(0x0002) MISSED OFFSET (FIX SPACE BETWEEN PREVIOUS PROPERTY)
 		struct FWeaponAnim                                         StartBurstAnim;                                          // 0x0D60(0x0010) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
 		struct FWeaponAnim                                         FinishBurstAnim;                                         // 0x0D70(0x0010) Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor
-		unsigned char                                              UnknownData_RTJZ[0x8];                                   // 0x0D80(0x0008) MISSED OFFSET (PADDING)
+		unsigned char                                              UnknownData_51HE[0x8];                                   // 0x0D80(0x0008) MISSED OFFSET (PADDING)
 
 	public:
 		bool UsesAmmo();

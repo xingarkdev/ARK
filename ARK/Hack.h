@@ -530,11 +530,12 @@ struct DataStruct
 	{
 		//Aim
 		bool aimbot = true;
-		int aimKey = 0x1;
+		int aimKey = 0x6;
 
 		bool silentAim = true;
 		bool noSpread = true;
 		bool rapidFire = true;
+		float rapidFireMulti = .25f;
 		float aimFOV = 500.f;
 
 		//ESP
@@ -837,7 +838,8 @@ void RenderMenu(ID3D11Device* Device) {
 
 			ImGui::Checkbox("No Spread/Recoil", &Data.Settings.noSpread);
 
-			//ImGui::Checkbox("Rapid Fire", &Data.Settings.rapidFire);
+			ImGui::Checkbox("Rapid Fire", &Data.Settings.rapidFire);
+			ImGui::SliderFloat("Time Between Shots", &Data.Settings.rapidFireMulti, 0.f, 1.f);
 
 			ImGui::EndChild();
 		}
@@ -897,7 +899,7 @@ void RenderMenu(ID3D11Device* Device) {
 		}
 		else if (selection_count == 5)
 		{
-			if (ImGui::group("Misc", true)) {}
+			if (ImGui::group("Settings", true)) {}
 
 			ImGui::SetCursorPos(ImVec2(85, 70));
 			ImGui::BeginChild("Config", ImVec2(282, 386));
@@ -911,6 +913,11 @@ void RenderMenu(ID3D11Device* Device) {
 			{
 				SaveConfig();
 			}
+
+			ImGui::EndChild();
+
+			ImGui::SetCursorPos(ImVec2(382, 70));
+			ImGui::BeginChild("Other", ImVec2(282, 386));
 
 			ImGui::Checkbox("Panic Mode", &Data.Settings.panicMode);
 
