@@ -1,6 +1,13 @@
 #include "Hack.h"
 #include <random>
-
+static float PlayerColor1[4] = { 1.0f, 0.1f, 0.1f, 255 };
+static float CrosshairColor1[4] = { 0.0f, 0.0f, 1.0f, 255 };
+static float CrosshairColorFOV1[4] = { 0.0f, 0.0f, 1.0f, 255 };
+static float TamedDinoColor1[4] = { 1.0f, 0.1f, 0.1f, 255 };
+static float WildDinoColor1[4] = { 0.0f, 0.1f, 1.0f, 255 };
+static float ContainerColor1[4] = { 0.9f, 1.0f, 0.0f, 255 };
+static float TurretColor1[4] = { 0.4f, 0.0f, 1.0f, 255 };
+static float FilteredDinoColor1[4] = { 0.9f, 0.0f, 1.0f, 255 };
 void InitCheat()
 {
 	CG::InitSdk();
@@ -28,8 +35,22 @@ void InitCheat()
 
 }
 
+
+inline void Renderer::Drawing::RenderCrosshair(ImColor Color, int Thickness)
+{
+	auto DrawList = ImGui::GetBackgroundDrawList();
+	auto WinSizeX = ImGui::GetWindowSize().x;
+	auto WinSizeY = ImGui::GetWindowSize().y;
+	DrawList->AddLine(ImVec2(WinSizeX / 2, WinSizeY / 2), ImVec2(WinSizeX / 2, WinSizeY / 2 - Data.Settings.DrawCrosshair), Color, Thickness);
+	DrawList->AddLine(ImVec2(WinSizeX / 2, WinSizeY / 2), ImVec2(WinSizeX / 2, WinSizeY / 2 + Data.Settings.DrawCrosshair), Color, Thickness);
+	DrawList->AddLine(ImVec2(WinSizeX / 2, WinSizeY / 2), ImVec2(WinSizeX / 2 - Data.Settings.CrossHairSize, WinSizeY / 2), Color, Thickness);
+	DrawList->AddLine(ImVec2(WinSizeX / 2, WinSizeY / 2), ImVec2(WinSizeX / 2 + Data.Settings.CrossHairSize, WinSizeY / 2), Color, Thickness);
+}
+
+
 void MainThread()
 {
+
 	Data.DrawLineQueue.clear();
 	Data.DrawTextQueue.clear();
 	//Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, L"123", {500,500}, {1,0,0,1}, 1.0f, Data.Settings.shadowColor, {1, 1}, true, true, true, Data.Settings.shadowColor));
@@ -46,13 +67,24 @@ void MainThread()
 	//Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, L"123", { 500,500 }, { 1,0,0,1 }, 1.0f, Data.Settings.shadowColor, { 1, 1 }, true, true, true, Data.Settings.shadowColor));
 	try {
 		do {
+
+			if (Data.Settings.DrawCrosshair) {
+				ImColor CrosshairColor;
+
+				int NewR = CrosshairColor1[0] * 255;
+				int NewG = CrosshairColor1[1] * 255;
+				int NewB = CrosshairColor1[2] * 255;
+				CrosshairColor = ImColor(NewR, NewG, NewB, 255);
+				Renderer::Drawing::RenderCrosshair(CrosshairColor, (Data.Settings.DrawCrosshair));
+
+			}
 			if (Data.Settings.panicMode) return;
 			//HUD info
 			std::random_device rd;
 			std::mt19937 gen(rd());
 			std::uniform_real_distribution<> dist(0, 1);
 			Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, L"xingark.xyz", { Data.drawCanvas->SizeX * .95,Data.drawCanvas->SizeY * .02 }, { (float)dist(gen),(float)dist(gen),(float)dist(gen),1 }, 1.0f, Data.Settings.shadowColor, { 1, 1 }, true, true, true, Data.Settings.shadowColor));
-			
+
 			//party time
 			/*Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, L"xingark.xyz", {Data.drawCanvas->SizeX * (float)dist(gen),Data.drawCanvas->SizeY * (float)dist(gen)}, {(float)dist(gen),(float)dist(gen),(float)dist(gen),1}, 1.0f, Data.Settings.shadowColor, {1, 1}, true, true, true, Data.Settings.shadowColor));
 			Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, L"xingark.xyz", { Data.drawCanvas->SizeX * (float)dist(gen),Data.drawCanvas->SizeY * (float)dist(gen) }, { (float)dist(gen),(float)dist(gen),(float)dist(gen),1 }, 1.0f, Data.Settings.shadowColor, { 1, 1 }, true, true, true, Data.Settings.shadowColor));
@@ -78,7 +110,7 @@ void MainThread()
 
 				if (player->IsLocallyControlled()) Data.localPlayer = player;
 				else if (Data.pCtr->PlayerCameraManager && W2S(player->RootComponent->GetWorldLocation(), PlayerScreenLocation))
-				//else if (Data.pCtr->ProjectWorldLocationToScreen(player->K2_GetRootComponent()->GetWorldLocation(), &PlayerScreenLocation))
+					//else if (Data.pCtr->ProjectWorldLocationToScreen(player->K2_GetRootComponent()->GetWorldLocation(), &PlayerScreenLocation))
 				{
 					if (Data.Settings.playerESP)
 					{
@@ -110,7 +142,7 @@ void MainThread()
 					}
 
 					//aimbot
-					if (!player->IsDead() && player->BPIsConscious() /* && Data.localPlayer && !player->IsPrimalCharFriendly(Data.localPlayer) */ )
+					if (!player->IsDead() && player->BPIsConscious() /* && Data.localPlayer && !player->IsPrimalCharFriendly(Data.localPlayer) */)
 					{
 						int distance = calcDistance(Data.drawCanvas->SizeX / 2, Data.drawCanvas->SizeY / 2, PlayerScreenLocation.X, PlayerScreenLocation.Y);
 						if (distance < (int)Data.Settings.aimFOV)
@@ -309,7 +341,7 @@ void MainThread()
 			{
 				Data.localPlayer->OrbitCamMaxZoomLevel = 5000;
 			}
-
+			// longarm
 			if (Data.Settings.longArm)
 			{
 				Data.localPlayer->AdditionalMaxUseDistance = 5000;
@@ -319,7 +351,7 @@ void MainThread()
 			if (Data.Settings.rapidFire && Data.localPlayer)
 			{
 				auto Zoom = Data.localPlayer->CurrentWeapon;
-				if (Zoom) 
+				if (Zoom)
 				{
 					Zoom->WeaponConfig.TimeBetweenShots = Data.Settings.rapidFireMulti;
 					if (Zoom->LastFireTime == 0) Zoom->LastFireTime = Zoom->LastFireTime + Zoom->LastNotifyShotTime - Zoom->WeaponConfig.TimeBetweenShots;
@@ -368,6 +400,7 @@ void MainThread()
 	}
 }
 
+
 CG::FVector* hkAdjustedAim(CG::AShooterWeapon* Weapon, CG::FVector* Result) {
 	if (Data.AimbotTarget && Data.Settings.silentAim)
 	{
@@ -380,6 +413,7 @@ CG::FVector* hkAdjustedAim(CG::AShooterWeapon* Weapon, CG::FVector* Result) {
 	}
 	return Data.OriginalhkAdjustedAim(Weapon, Result);
 }
+
 
 void hkPostRender(CG::UShooterGameViewportClient* viewport, CG::UCanvas* canvas)
 {

@@ -399,6 +399,9 @@ static const int KeyCodes[] = {
 	0xA5
 };
 
+
+
+
 struct
 {
 	HWND GameWindow;
@@ -414,6 +417,31 @@ struct
 	ID3D11RenderTargetView* RenderTargetView = nullptr;
 } D3D;
 
+struct Renderer
+{
+public:
+	static HRESULT D3D_HOOK(IDXGISwapChain* SwapChain, UINT SyncInterval, UINT Flags);
+	static bool CreateView();
+	static LRESULT WINAPI WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	static BOOL WINAPI SetCursorPosHook(int X, int Y);
+	static HCURSOR WINAPI SetCursorHook(HCURSOR hCursor);
+	static void HookInput();
+	static void RemoveInput();
+public:
+	static inline bool Init();
+	static inline bool Remove();
+
+	struct Drawing
+	{
+		static inline void RenderText(ImVec2 ScreenPosition, ImColor Color, const char* Text, int widthText);
+		static inline void RenderText2(ImVec2 ScreenPosition, ImColor Color, const char* Text, int widthText);
+		static inline void RenderCrosshair(ImColor Color, int Thickness);
+		static inline void RenderAimFOV(ImColor Color);
+		static inline bool WithinAimFOV(int CircleX, int CircleY, int R, int X, int Y);
+		static inline int ReturnDistance(int X1, int Y1, int X2, int Y2);
+		static inline void RenderCollapseFriendlyDisplayList(ImVec2 ScreenStartPosition, ImColor Color, std::vector<std::string> DisplayArray, float HeightFactor);
+	};
+};
 struct DrawTextData
 {
 	CG::UFont* RenderFont;
@@ -528,6 +556,8 @@ struct DataStruct
 
 	struct
 	{
+		//Crosshair
+		float CrossHairSize = 3;
 		//Aim
 		bool aimbot = true;
 		int aimKey = 0x6;
@@ -548,7 +578,7 @@ struct DataStruct
 		bool playerESP = true;
 		bool turretESP = true;
 		bool containerESP = false;
-
+		bool DrawCrosshair = false;
 		//Rocket Turret
 		bool rocketTurret = true;
 		int streamHotkey = 0x1;
@@ -858,6 +888,7 @@ void RenderMenu(ID3D11Device* Device) {
 			//KeyBind( &Data.Settings.FlyKey, &Data.KeyboardInfo, { 262,25 });
 
 			ImGui::Checkbox("Infinite Orbit", &Data.Settings.infiniteOrbit);
+			ImGui::Checkbox("Crosshair", &Data.Settings.DrawCrosshair);
 
 			ImGui::Checkbox("Rocket Turret", &Data.Settings.rocketTurret);
 
