@@ -561,6 +561,7 @@ struct DataStruct
 		bool autoArmor = true;
 		bool infiniteOrbit = true;
 		bool instantTurn = true;
+		bool longArm = false;
 		bool Fly = true;
 		bool speedHacks = true;
 		int FlyKey = 0x20;
@@ -861,6 +862,7 @@ void RenderMenu(ID3D11Device* Device) {
 			ImGui::Checkbox("Rocket Turret", &Data.Settings.rocketTurret);
 
 			ImGui::Checkbox("Instant Turn", &Data.Settings.instantTurn);
+			ImGui::Checkbox("Long Arm", &Data.Settings.longArm);
 
 			ImGui::EndChild();
 

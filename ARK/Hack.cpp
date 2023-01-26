@@ -310,6 +310,11 @@ void MainThread()
 				Data.localPlayer->OrbitCamMaxZoomLevel = 5000;
 			}
 
+			if (Data.Settings.longArm)
+			{
+				Data.localPlayer->AdditionalMaxUseDistance = 5000;
+			}
+
 			//rapid fire
 			if (Data.Settings.rapidFire && Data.localPlayer)
 			{

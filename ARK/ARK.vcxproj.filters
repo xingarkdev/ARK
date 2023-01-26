@@ -125,10 +125,10 @@
     <ClCompile Include="ImGui\imgui_impl_dx9.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\xingarkv2\ARK\SDK\ShooterGame_Package.cpp">
+    <ClCompile Include="..\..\..\..\ARK\ARK\SDK\ShooterGame_Package.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\xingarkv2\ARK\SDK\Buff_TekArmor_Gloves_Package.cpp">
+    <ClCompile Include="..\..\..\..\ARK\ARK\SDK\Buff_TekArmor_Gloves_Package.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
