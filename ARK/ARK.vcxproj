@@ -132,7 +132,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;ARK_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ARK_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -141,7 +141,7 @@
       <AdditionalOptions>/bigobj /Zc:threadSafeInit- %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -197,8 +197,8 @@
     <ClInclude Include="SDK.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\ARK\ARK\SDK\Buff_TekArmor_Gloves_Package.cpp" />
-    <ClCompile Include="..\..\..\..\ARK\ARK\SDK\ShooterGame_Package.cpp" />
+    <ClCompile Include="..\..\xingarkv2\ARK\SDK\Buff_TekArmor_Gloves_Package.cpp" />
+    <ClCompile Include="..\..\xingarkv2\ARK\SDK\ShooterGame_Package.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Hack.cpp" />
     <ClCompile Include="Hooking\D3D11Hooking.cpp" />

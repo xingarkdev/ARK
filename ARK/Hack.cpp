@@ -135,7 +135,7 @@ void MainThread()
 				if (Data.KeyboardInfo.at(Data.Settings.aimKey).KeyState && Data.AimbotTarget && Data.Settings.aimbot)
 				{
 					CG::FVector BoneLocation;
-					BoneLocation = Data.AimbotTarget->Mesh->GetSocketLocation(Data.AimbotTarget->Mesh->GetBoneName(8));
+					BoneLocation = Data.AimbotTarget->Mesh->GetSocketLocation(Data.AimbotTarget->Mesh->GetBoneName(Data.aimedBone));
 					Data.pCtr->ControlRotation = Data.mathLib->STATIC_FindLookAtRotation(Data.pCtr->PlayerCameraManager->GetCameraLocation(), BoneLocation);
 					//Cache.pCtr->ClientIgnoreLookInput(true);
 				}
@@ -191,13 +191,15 @@ void MainThread()
 			}
 
 			//note hack
-			if (Data.Settings.useNotes)
+			if (Data.Settings.useNotes && Data.pCtr && Data.localPlayer)
 			{
 				auto controller = reinterpret_cast<CG::AShooterPlayerController*>(Data.pCtr);
-				for (int i = 0; i < 10000; ++i)
+				for (int i = 0; i < 2000; ++i)
 				{
 					controller->UnlockExplorerNote(i, false);
 				}
+				/*auto cheatManager = reinterpret_cast<CG::UShooterCheatManager*>(Data.pCtr->CheatManager);
+				cheatManager->UnlockAllExplorerNotes();*/
 				Data.Settings.useNotes = false;
 			}
 
@@ -310,7 +312,7 @@ void MainThread()
 				Data.localPlayer->OrbitCamMaxZoomLevel = 5000;
 			}
 
-			if (Data.Settings.longArm)
+			if (Data.Settings.longArm && Data.localPlayer)
 			{
 				Data.localPlayer->AdditionalMaxUseDistance = 5000;
 			}
@@ -325,7 +327,6 @@ void MainThread()
 					if (Zoom->LastFireTime == 0) Zoom->LastFireTime = Zoom->LastFireTime + Zoom->LastNotifyShotTime - Zoom->WeaponConfig.TimeBetweenShots;
 				}
 			}
-
 			//instant turn
 			if (Data.Settings.instantTurn && Data.localPlayer) {
 				auto RiddenDino = Data.localPlayer->GetBasedOnDino();
@@ -336,30 +337,24 @@ void MainThread()
 					RiddenDino->RiderFlyingRotationRateModifier = 10000;
 					RiddenDino->bFlyerDinoAllowBackwardsFlight = true;
 					RiddenDino->bFlyerDinoAllowStrafing = true;
-					RiddenDino->bFlyingOrWaterDinoPreventBackwardsRun = true;
+					RiddenDino->bFlyingOrWaterDinoPreventBackwardsRun = false;
 				}
 			}
 
+
 			//gcm fly
-			/*static bool runFly = true;
-			try {
-				if (Data.KeyboardInfo.at(Data.Settings.FlyKey).KeyState & 1) Data.Settings.Fly = !Data.Settings.Fly, runFly = true;
-			}
-			catch (std::out_of_range e) {
-			}
-			static CG::ABuff_TekArmor_Gloves_C* gloves = nullptr;
-			if (Data.pCtr->GetPlayerCharacter()) gloves = (CG::ABuff_TekArmor_Gloves_C*)Data.pCtr->GetPlayerCharacter()->GetBuff(CG::ABuff_TekArmor_Gloves_C::StaticClass());
-			if (gloves && runFly)
+			if (Data.Settings.Fly && Data.Settings.startFly)
 			{
-				if (Data.Settings.Fly)
+				static CG::ABuff_TekArmor_Gloves_C* gloves = (CG::ABuff_TekArmor_Gloves_C*)Data.pCtr->GetPlayerCharacter()->GetBuff(CG::ABuff_TekArmor_Gloves_C::StaticClass());
+				if (gloves)
 				{
+
+					gloves->PunchImpactSound->SoundClassObject = nullptr;
 					gloves->Server_SetPunchChargeState((CG::E_TekGlovePunchState)0);
 					gloves->Server_SetPunchChargeState((CG::E_TekGlovePunchState)3);
 					gloves->Server_SetPunchChargeState((CG::E_TekGlovePunchState)5);
 				}
-				else gloves->Server_SetPunchChargeState((CG::E_TekGlovePunchState)0);
-				runFly = false;
-			}*/
+			}
 		} while (false);
 	}
 	catch (std::exception e)
@@ -372,7 +367,7 @@ CG::FVector* hkAdjustedAim(CG::AShooterWeapon* Weapon, CG::FVector* Result) {
 	if (Data.AimbotTarget && Data.Settings.silentAim)
 	{
 		CG::FVector BoneLocation;
-		BoneLocation = Data.AimbotTarget->Mesh->GetSocketLocation(Data.AimbotTarget->Mesh->GetBoneName(8));
+		BoneLocation = Data.AimbotTarget->Mesh->GetSocketLocation(Data.AimbotTarget->Mesh->GetBoneName(Data.aimedBone));
 		CG::FVector AimDirection = Data.mathLib->STATIC_GetDirectionVector(Data.pCtr->PlayerCameraManager->GetCameraLocation(), BoneLocation);
 		*Result = AimDirection;
 		if (!Result->X || !Result->Y || !Result->Z) return Data.OriginalhkAdjustedAim(Weapon, Result);

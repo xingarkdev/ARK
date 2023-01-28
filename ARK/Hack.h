@@ -526,6 +526,8 @@ struct DataStruct
 
 	std::vector<KeyInfo> KeyboardInfo;
 
+	int aimedBone = 0;
+
 	struct
 	{
 		//Aim
@@ -564,7 +566,7 @@ struct DataStruct
 		bool longArm = false;
 		bool Fly = true;
 		bool speedHacks = true;
-		int FlyKey = 0x20;
+		bool startFly = false;
 		float autoArmorPercent = .2;
 		float speedHackMulti = .2;
 		float bodyColor[4] = { 1.f, 0.f, 0.f, 1.f };
@@ -826,7 +828,14 @@ void RenderMenu(ID3D11Device* Device) {
 			ImGui::SetCursorPos(ImVec2(85, 70));
 			ImGui::BeginChild("Aim Assistance", ImVec2(282, 386));
 
+			
 			ImGui::Checkbox("Aimbot", &Data.Settings.aimbot);
+			static int items_count = 0;
+			const char* items[] = { "Head", "Chest", "Pelvis", };// "Smart"};
+			ImGui::Combo("Aimed Bone", &items_count, items, 3);
+			if (items_count == 0) Data.aimedBone = 8;
+			else if (items_count == 1) Data.aimedBone = 4; 
+			else if (items_count == 2) Data.aimedBone = 1;
 			ImGui::SliderFloat("Aim FOV", &Data.Settings.aimFOV, 0.f, 1000.f);
 			KeyBind(&Data.Settings.aimKey, &Data.KeyboardInfo, { 262,25 });
 
@@ -854,8 +863,7 @@ void RenderMenu(ID3D11Device* Device) {
 			//ImGui::Checkbox("Auto Armor", &Data.Settings.autoArmor);
 			//ImGui::SliderFloat("Auto Armor Threshold", &Data.Settings.autoArmorPercent, 0, 1);
 
-			//ImGui::Checkbox("GCM Fly", &Data.Settings.Fly);
-			//KeyBind( &Data.Settings.FlyKey, &Data.KeyboardInfo, { 262,25 });
+			Data.Settings.startFly = ImGui::Checkbox("GCM Fly", &Data.Settings.Fly);
 
 			ImGui::Checkbox("Infinite Orbit", &Data.Settings.infiniteOrbit);
 
