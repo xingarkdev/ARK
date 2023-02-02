@@ -332,6 +332,8 @@ void MainThread()
 			//aChar Testing (Function and Pointer Testing) 
 			if (Data.Settings.aCharTesting)
 
+				static CG::ACharacter* fly = (CG::ACharacter*)Data.pCtr->GetPlayerCharacter();
+
 				{
 
 				

@@ -544,7 +544,7 @@ struct DataStruct
 	CG::UFont* defaultFont = nullptr;
 	CG::AShooterPlayerController* pCtr = nullptr;
 	CG::AHUD* pHud = nullptr;
-	CG::ACharacter* aChar = nullptr;
+	CG::ACharacter* aChar;
 	CG::TArray<CG::AActor*> primalChars{};
 	CG::AShooterCharacter* localPlayer = nullptr;
 	CG::AShooterCharacter* AimbotTarget;
@@ -760,7 +760,7 @@ float calcDistance(int x1, int y1, int x2, int y2)
 	return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2) * 1.0);
 }
 
-//menu is pasted from https://discord.gg/rG86p3e5fr
+
 void RenderMenu(ID3D11Device* Device) {
 	ImGuiStyle& style = ImGui::GetStyle();
 
