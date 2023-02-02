@@ -311,10 +311,10 @@ void MainThread()
 			{
 				Data.localPlayer->OrbitCamMaxZoomLevel = 5000;
 			}
-
+			//long arm
 			if (Data.Settings.longArm && Data.localPlayer)
 			{
-				Data.localPlayer->AdditionalMaxUseDistance = 5000;
+				Data.localPlayer->AdditionalMaxUseDistance = 25000000;
 			}
 
 			//rapid fire
@@ -340,7 +340,16 @@ void MainThread()
 					RiddenDino->bFlyingOrWaterDinoPreventBackwardsRun = false;
 				}
 			}
+			//tek chest mods
+			if (Data.Settings.Chest)
+			{
+				static CG::ABuff_TekArmor_Shirt_Rework_C* chest = (CG::ABuff_TekArmor_Shirt_Rework_C*)Data.pCtr->GetPlayerCharacter()->GetBuff(CG::ABuff_TekArmor_Shirt_Rework_C::StaticClass());
+				if (chest)
+				{
 
+					
+				}
+			}
 
 			//gcm fly
 			if (Data.Settings.Fly && Data.Settings.startFly)
@@ -348,7 +357,8 @@ void MainThread()
 				static CG::ABuff_TekArmor_Gloves_C* gloves = (CG::ABuff_TekArmor_Gloves_C*)Data.pCtr->GetPlayerCharacter()->GetBuff(CG::ABuff_TekArmor_Gloves_C::StaticClass());
 				if (gloves)
 				{
-
+					
+					gloves->punchAnimLength = 0.2;
 					gloves->PunchImpactSound->SoundClassObject = nullptr;
 					gloves->Server_SetPunchChargeState((CG::E_TekGlovePunchState)0);
 					gloves->Server_SetPunchChargeState((CG::E_TekGlovePunchState)3);

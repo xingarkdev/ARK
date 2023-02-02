@@ -587,6 +587,7 @@ struct DataStruct
 		int burstTurret = 0x2;
 
 		//Misc
+		bool Chest = false;
 		bool useNotes = false;
 		bool createChar = false;
 		bool ghostMode = false;
@@ -594,7 +595,7 @@ struct DataStruct
 		bool infiniteOrbit = true;
 		bool instantTurn = true;
 		bool longArm = false;
-		bool Fly = true;
+		bool Fly = false;
 		bool speedHacks = true;
 		bool startFly = false;
 		float autoArmorPercent = .2;
@@ -893,7 +894,8 @@ void RenderMenu(ID3D11Device* Device) {
 			//ImGui::Checkbox("Auto Armor", &Data.Settings.autoArmor);
 			//ImGui::SliderFloat("Auto Armor Threshold", &Data.Settings.autoArmorPercent, 0, 1);
 
-			Data.Settings.startFly = ImGui::Checkbox("GCM Fly", &Data.Settings.Fly);
+			Data.Settings.startFly = ImGui::Checkbox("Modded Tek Gauntlet", &Data.Settings.Fly);
+			Data.Settings.Chest = ImGui::Checkbox("Modded Tek Chest", &Data.Settings.Chest);
 
 			ImGui::Checkbox("Infinite Orbit", &Data.Settings.infiniteOrbit);
 			ImGui::Checkbox("Crosshair", &Data.Settings.DrawCrosshair);
