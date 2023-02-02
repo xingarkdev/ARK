@@ -51,8 +51,8 @@ void MainThread()
 			std::random_device rd;
 			std::mt19937 gen(rd());
 			std::uniform_real_distribution<> dist(0, 1);
-			Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, L"xingark.xyz", { Data.drawCanvas->SizeX * .95,Data.drawCanvas->SizeY * .02 }, { (float)dist(gen),(float)dist(gen),(float)dist(gen),1 }, 1.0f, Data.Settings.shadowColor, { 1, 1 }, true, true, true, Data.Settings.shadowColor));
-			
+			//Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, L"xingark.xyz", { Data.drawCanvas->SizeX * .95,Data.drawCanvas->SizeY * .02 }, { (float)dist(gen),(float)dist(gen),(float)dist(gen),1 }, 1.0f, Data.Settings.shadowColor, { 1, 1 }, true, true, true, Data.Settings.shadowColor));
+
 			//party time
 			/*Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, L"xingark.xyz", {Data.drawCanvas->SizeX * (float)dist(gen),Data.drawCanvas->SizeY * (float)dist(gen)}, {(float)dist(gen),(float)dist(gen),(float)dist(gen),1}, 1.0f, Data.Settings.shadowColor, {1, 1}, true, true, true, Data.Settings.shadowColor));
 			Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, L"xingark.xyz", { Data.drawCanvas->SizeX * (float)dist(gen),Data.drawCanvas->SizeY * (float)dist(gen) }, { (float)dist(gen),(float)dist(gen),(float)dist(gen),1 }, 1.0f, Data.Settings.shadowColor, { 1, 1 }, true, true, true, Data.Settings.shadowColor));
@@ -78,7 +78,7 @@ void MainThread()
 
 				if (player->IsLocallyControlled()) Data.localPlayer = player;
 				else if (Data.pCtr->PlayerCameraManager && W2S(player->RootComponent->GetWorldLocation(), PlayerScreenLocation))
-				//else if (Data.pCtr->ProjectWorldLocationToScreen(player->K2_GetRootComponent()->GetWorldLocation(), &PlayerScreenLocation))
+					//else if (Data.pCtr->ProjectWorldLocationToScreen(player->K2_GetRootComponent()->GetWorldLocation(), &PlayerScreenLocation))
 				{
 					if (Data.Settings.playerESP)
 					{
@@ -110,7 +110,7 @@ void MainThread()
 					}
 
 					//aimbot
-					if (!player->IsDead() && player->BPIsConscious() /* && Data.localPlayer && !player->IsPrimalCharFriendly(Data.localPlayer) */ )
+					if (!player->IsDead() && player->BPIsConscious() /* && Data.localPlayer && !player->IsPrimalCharFriendly(Data.localPlayer) */)
 					{
 						int distance = calcDistance(Data.drawCanvas->SizeX / 2, Data.drawCanvas->SizeY / 2, PlayerScreenLocation.X, PlayerScreenLocation.Y);
 						if (distance < (int)Data.Settings.aimFOV)
@@ -311,16 +311,15 @@ void MainThread()
 			{
 				Data.localPlayer->OrbitCamMaxZoomLevel = 5000;
 			}
+
+		
 			//long arm
 			if (Data.Settings.longArm && Data.localPlayer)
 			{
 				Data.localPlayer->AdditionalMaxUseDistance = 25000000;
 				
 			}
-			else
-			{
-				Data.localPlayer->AdditionalMaxUseDistance = 250;
-			}
+			
 
 
 			//Infinite Slots
@@ -328,6 +327,20 @@ void MainThread()
 			{
 				Data.localPlayer->bIsAtMaxInventoryItems = false;
 			}
+
+			
+			//aChar Testing (Function and Pointer Testing) 
+			if (Data.Settings.aCharTesting)
+
+				{
+
+				
+
+				
+				}
+			
+
+		
 			
 
 			//rapid fire
@@ -354,7 +367,7 @@ void MainThread()
 				}
 			}
 			//tek chest mods
-			if (Data.Settings.Chest)
+			if (Data.Settings.Chests)
 			{
 				static CG::ABuff_TekArmor_Shirt_Rework_C* chest = (CG::ABuff_TekArmor_Shirt_Rework_C*)Data.pCtr->GetPlayerCharacter()->GetBuff(CG::ABuff_TekArmor_Shirt_Rework_C::StaticClass());
 				if (chest)
@@ -370,7 +383,7 @@ void MainThread()
 				static CG::ABuff_TekArmor_Gloves_C* gloves = (CG::ABuff_TekArmor_Gloves_C*)Data.pCtr->GetPlayerCharacter()->GetBuff(CG::ABuff_TekArmor_Gloves_C::StaticClass());
 				if (gloves)
 				{
-					
+
 					gloves->punchAnimLength = 0.2;
 					gloves->PunchImpactSound->SoundClassObject = nullptr;
 					gloves->Server_SetPunchChargeState((CG::E_TekGlovePunchState)0);

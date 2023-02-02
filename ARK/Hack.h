@@ -544,6 +544,7 @@ struct DataStruct
 	CG::UFont* defaultFont = nullptr;
 	CG::AShooterPlayerController* pCtr = nullptr;
 	CG::AHUD* pHud = nullptr;
+	CG::ACharacter* aChar = nullptr;
 	CG::TArray<CG::AActor*> primalChars{};
 	CG::AShooterCharacter* localPlayer = nullptr;
 	CG::AShooterCharacter* AimbotTarget;
@@ -587,7 +588,10 @@ struct DataStruct
 		int burstTurret = 0x2;
 
 		//Misc
-		bool Chest = false;
+		bool aCharTesting = false;
+		bool Chests = false;
+		bool Slots = false;
+		int FlyKey = 0x70;
 		bool useNotes = false;
 		bool createChar = false;
 		bool ghostMode = false;
@@ -595,10 +599,9 @@ struct DataStruct
 		bool infiniteOrbit = true;
 		bool instantTurn = true;
 		bool longArm = false;
-		bool Fly = false;
+		bool Fly = true;
 		bool speedHacks = true;
 		bool startFly = false;
-		bool Slots = false;
 		float autoArmorPercent = .2;
 		float speedHackMulti = .2;
 		float bodyColor[4] = { 1.f, 0.f, 0.f, 1.f };
@@ -800,7 +803,7 @@ void RenderMenu(ID3D11Device* Device) {
 		//->AddCircleFilled(pos + ImVec2(35, 433), 16.f, ImColor(0, 0, 0, 50), 60.f);
 		//draw->AddCircle(pos + ImVec2(35, 433), 17.f, ImColor(255, 255, 255, 15), 60.f);
 
-		draw->AddText(pos + ImVec2(580, 20), ImColor(255, 255, 255, 255), "xingark.xyz");
+		draw->AddText(pos + ImVec2(580, 20), ImColor(255, 255, 255, 255), "Dev Build");
 
 		ImGui::AddShadow(ImVec2(0, 0), ImVec2(680, 470), 20, 4, 7, 2, 20, ImColor(0, 0, 0));
 
@@ -895,18 +898,16 @@ void RenderMenu(ID3D11Device* Device) {
 			//ImGui::Checkbox("Auto Armor", &Data.Settings.autoArmor);
 			//ImGui::SliderFloat("Auto Armor Threshold", &Data.Settings.autoArmorPercent, 0, 1);
 
-			Data.Settings.startFly = ImGui::Checkbox("Modded Tek Gauntlet", &Data.Settings.Fly);
-			Data.Settings.Chest = ImGui::Checkbox("Modded Tek Chest", &Data.Settings.Chest);
+			//Data.Settings.startFly = ImGui::Checkbox("GCM Fly", &Data.Settings.Fly);
 
-			ImGui::Checkbox("Infinite Orbit", &Data.Settings.infiniteOrbit);
-			ImGui::Checkbox("Crosshair", &Data.Settings.DrawCrosshair);
+			//ImGui::Checkbox("Infinite Orbit", &Data.Settings.infiniteOrbit);
+			//ImGui::Checkbox("Crosshair", &Data.Settings.DrawCrosshair);
 
-			ImGui::Checkbox("Rocket Turret", &Data.Settings.rocketTurret);
+			//ImGui::Checkbox("Rocket Turret", &Data.Settings.rocketTurret);
 
-			ImGui::Checkbox("Instant Turn", &Data.Settings.instantTurn);
-			ImGui::Checkbox("Long Arm", &Data.Settings.longArm);
-			ImGui::Checkbox("Infinite Inventory Slots", &Data.Settings.Slots);
-
+			//ImGui::Checkbox("Instant Turn", &Data.Settings.instantTurn);
+			//ImGui::Checkbox("Long Arm", &Data.Settings.longArm);
+			ImGui::Checkbox("Testing", &Data.Settings.aCharTesting);
 
 			ImGui::EndChild();
 
