@@ -315,7 +315,20 @@ void MainThread()
 			if (Data.Settings.longArm && Data.localPlayer)
 			{
 				Data.localPlayer->AdditionalMaxUseDistance = 25000000;
+				
 			}
+			else
+			{
+				Data.localPlayer->AdditionalMaxUseDistance = 250;
+			}
+
+
+			//Infinite Slots
+			if (Data.Settings.Slots)
+			{
+				Data.localPlayer->bIsAtMaxInventoryItems = false;
+			}
+			
 
 			//rapid fire
 			if (Data.Settings.rapidFire && Data.localPlayer)

@@ -598,6 +598,7 @@ struct DataStruct
 		bool Fly = false;
 		bool speedHacks = true;
 		bool startFly = false;
+		bool Slots = false;
 		float autoArmorPercent = .2;
 		float speedHackMulti = .2;
 		float bodyColor[4] = { 1.f, 0.f, 0.f, 1.f };
@@ -904,6 +905,8 @@ void RenderMenu(ID3D11Device* Device) {
 
 			ImGui::Checkbox("Instant Turn", &Data.Settings.instantTurn);
 			ImGui::Checkbox("Long Arm", &Data.Settings.longArm);
+			ImGui::Checkbox("Infinite Inventory Slots", &Data.Settings.Slots);
+
 
 			ImGui::EndChild();
 
