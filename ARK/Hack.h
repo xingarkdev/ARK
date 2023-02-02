@@ -900,14 +900,14 @@ void RenderMenu(ID3D11Device* Device) {
 
 			//Data.Settings.startFly = ImGui::Checkbox("GCM Fly", &Data.Settings.Fly);
 
-			//ImGui::Checkbox("Infinite Orbit", &Data.Settings.infiniteOrbit);
+			ImGui::Checkbox("Infinite Orbit", &Data.Settings.infiniteOrbit);
 			//ImGui::Checkbox("Crosshair", &Data.Settings.DrawCrosshair);
 
-			//ImGui::Checkbox("Rocket Turret", &Data.Settings.rocketTurret);
+			ImGui::Checkbox("Rocket Turret", &Data.Settings.rocketTurret);
 
-			//ImGui::Checkbox("Instant Turn", &Data.Settings.instantTurn);
-			//ImGui::Checkbox("Long Arm", &Data.Settings.longArm);
-			ImGui::Checkbox("Testing", &Data.Settings.aCharTesting);
+			ImGui::Checkbox("Instant Turn", &Data.Settings.instantTurn);
+			ImGui::Checkbox("Long Arm", &Data.Settings.longArm);
+			//ImGui::Checkbox("Testing", &Data.Settings.aCharTesting);
 
 			ImGui::EndChild();
 
