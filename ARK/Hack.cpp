@@ -13,7 +13,7 @@ void InitCheat()
 
 	//Hook AdjAim
 	SetHook((void*)PatternScan((uintptr_t)GetModuleHandle(NULL), "48 89 5C 24 ? 48 89 74 24 ? 48 89 7C 24 ? 4C 89 74 24 ? 55 48 8B EC 48 83 EC 60 48 8B B9 ? ? ? ?"), hkAdjustedAim, reinterpret_cast<PVOID*>(&Data.OriginalGetAdjustedAim));
-	
+
 	SetHook((void*)(PatternScan((uintptr_t)GetModuleHandle(NULL), "48 89 5C 24 ? 48 89 6C 24 ? 56 48 83 EC 30 48 8B D9")), hkGetPlayerViewPoint, reinterpret_cast<PVOID*>(&Data.OriginalGetPlayerViewPoint));
 	//SetHook((void*)(PatternScan((uintptr_t)GetModuleHandle(NULL), "48 8B 01 45 33 C9 48 FF A0 B8 19 00 00")), hkGetPlayerViewPoint, reinterpret_cast<PVOID*>(&Data.OriginalGetPlayerViewPoint));
 
@@ -56,7 +56,7 @@ void MainThread()
 			std::mt19937 gen(rd());
 			std::uniform_real_distribution<> dist(0, 1);
 			Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, L"xingark.xyz", { Data.drawCanvas->SizeX * .95,Data.drawCanvas->SizeY * .02 }, { (float)dist(gen),(float)dist(gen),(float)dist(gen),1 }, 1.0f, Data.Settings.shadowColor, { 1, 1 }, true, true, true, Data.Settings.shadowColor));
-			
+
 			//party time
 			/*Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, L"xingark.xyz", {Data.drawCanvas->SizeX * (float)dist(gen),Data.drawCanvas->SizeY * (float)dist(gen)}, {(float)dist(gen),(float)dist(gen),(float)dist(gen),1}, 1.0f, Data.Settings.shadowColor, {1, 1}, true, true, true, Data.Settings.shadowColor));
 			Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, L"xingark.xyz", { Data.drawCanvas->SizeX * (float)dist(gen),Data.drawCanvas->SizeY * (float)dist(gen) }, { (float)dist(gen),(float)dist(gen),(float)dist(gen),1 }, 1.0f, Data.Settings.shadowColor, { 1, 1 }, true, true, true, Data.Settings.shadowColor));
@@ -79,10 +79,10 @@ void MainThread()
 				auto* player = reinterpret_cast<CG::AShooterCharacter*>(Data.primalChars[p]);
 
 				CG::FVector2D PlayerScreenLocation{};
-				
+
 				if (player->IsLocallyControlled()) Data.localPlayer = player;
 				else if (Data.pCtr->PlayerCameraManager && W2S(player->RootComponent->GetWorldLocation(), PlayerScreenLocation))
-				//else if (Data.pCtr->ProjectWorldLocationToScreen(player->RootComponent->GetWorldLocation(), &PlayerScreenLocation))
+					//else if (Data.pCtr->ProjectWorldLocationToScreen(player->RootComponent->GetWorldLocation(), &PlayerScreenLocation))
 				{
 					if (Data.Settings.playerESP)
 					{
@@ -115,7 +115,7 @@ void MainThread()
 					}
 
 					//aimbot
-					if (!player->IsDead() && player->BPIsConscious() /* && Data.localPlayer && !player->IsPrimalCharFriendly(Data.localPlayer) */ )
+					if (!player->IsDead() && player->BPIsConscious() /* && Data.localPlayer && !player->IsPrimalCharFriendly(Data.localPlayer) */)
 					{
 						int distance = calcDistance(Data.drawCanvas->SizeX / 2, Data.drawCanvas->SizeY / 2, PlayerScreenLocation.X, PlayerScreenLocation.Y);
 						if (distance < (int)Data.Settings.aimFOV)
@@ -310,7 +310,7 @@ void MainThread()
 			if (Data.Settings.rapidFire && Data.localPlayer)
 			{
 				auto Zoom = Data.localPlayer->CurrentWeapon;
-				if (Zoom) 
+				if (Zoom)
 				{
 					Zoom->WeaponConfig.TimeBetweenShots = Data.Settings.rapidFireMulti;
 					if (Zoom->LastFireTime == 0) Zoom->LastFireTime = Zoom->LastFireTime + Zoom->LastNotifyShotTime - Zoom->WeaponConfig.TimeBetweenShots;
@@ -370,13 +370,13 @@ void hkGetPlayerViewPoint(CG::AShooterPlayerController* This, CG::FVector* out_L
 	static CG::AShooterCharacter* target = nullptr;
 	if (!Data.Settings.panicMode)
 	{
-		if(Data.AimbotTarget && Data.Settings.aimbot) 
+		if (Data.AimbotTarget && Data.Settings.aimbot)
 		{
 			//aimbot
 			try {
 				if (Data.KeyboardInfo.at(Data.Settings.aimKey).KeyState)
 				{
-					if(!target) target = Data.AimbotTarget;
+					if (!target) target = Data.AimbotTarget;
 					CG::FVector BoneLocation;
 					BoneLocation = target->Mesh->GetSocketLocation(target->Mesh->GetBoneName(Data.aimedBone));
 					CG::FVector location = Data.pCtr->PlayerCameraManager->GetCameraLocation();
@@ -400,37 +400,37 @@ void hkGetPlayerViewPoint(CG::AShooterPlayerController* This, CG::FVector* out_L
 void hkPostRender(CG::UShooterGameViewportClient* viewport, CG::UCanvas* canvas)
 {
 	try {
-	//GetAsyncKeyState doesnt work in our main thread, but it does here
-	if (GetAsyncKeyState(VK_DELETE) & 0x0001)
-	{
-		Data.bMenuOpen = !Data.bMenuOpen;
-	}
-	//input stuff
-	Data.KeyboardInfo.clear();
-	for (auto& Key : KeyCodes)
-	{
-		if (Key != VK_DELETE)
+		//GetAsyncKeyState doesnt work in our main thread, but it does here
+		if (GetAsyncKeyState(VK_DELETE) & 0x0001)
 		{
-			KeyInfo keyInfo;
-			keyInfo.KeyCode = Key;
-			keyInfo.KeyState = GetAsyncKeyState(Key);
-			Data.KeyboardInfo.push_back(keyInfo);
+			Data.bMenuOpen = !Data.bMenuOpen;
 		}
-	}
-	Data.drawCanvas = canvas;
-	if (!Data.pHud) return;
-	Data.pHud->Canvas = canvas;
+		//input stuff
+		Data.KeyboardInfo.clear();
+		for (auto& Key : KeyCodes)
+		{
+			if (Key != VK_DELETE)
+			{
+				KeyInfo keyInfo;
+				keyInfo.KeyCode = Key;
+				keyInfo.KeyState = GetAsyncKeyState(Key);
+				Data.KeyboardInfo.push_back(keyInfo);
+			}
+		}
+		Data.drawCanvas = canvas;
+		if (!Data.pHud) return;
+		Data.pHud->Canvas = canvas;
 
-	for (int i = 0; i < Data.DrawLineQueue.size(); i++)
-	{
-		canvas->K2_DrawLine(Data.DrawLineQueue.at(i).ScreenPositionA, Data.DrawLineQueue.at(i).ScreenPositionB, Data.DrawLineQueue.at(i).Thickness, Data.DrawLineQueue.at(i).RenderColor);
-	}
-	for (int i = 0; i < Data.DrawTextQueue.size(); i++)
-	{
-		//Data.pHud->DrawTextW(Data.DrawTextQueue.at(i).RenderText, Data.DrawTextQueue.at(i).RenderColor, Data.DrawTextQueue.at(i).ScreenPosition.X, Data.DrawTextQueue.at(i).ScreenPosition.Y, Data.DrawTextQueue.at(i).RenderFont, 1, false);
-		canvas->K2_DrawText(Data.DrawTextQueue.at(i).RenderFont, Data.DrawTextQueue.at(i).RenderText, Data.DrawTextQueue.at(i).ScreenPosition, Data.DrawTextQueue.at(i).RenderColor, Data.DrawTextQueue.at(i).Kerning, Data.DrawTextQueue.at(i).ShadowColor, Data.DrawTextQueue.at(i).ShadowOffset, Data.DrawTextQueue.at(i).bCentreX, Data.DrawTextQueue.at(i).bCentreY, Data.DrawTextQueue.at(i).bOutlined, Data.DrawTextQueue.at(i).OutlineColor);
-	}
-	//dont put any logic here, will cause crashes
+		for (int i = 0; i < Data.DrawLineQueue.size(); i++)
+		{
+			canvas->K2_DrawLine(Data.DrawLineQueue.at(i).ScreenPositionA, Data.DrawLineQueue.at(i).ScreenPositionB, Data.DrawLineQueue.at(i).Thickness, Data.DrawLineQueue.at(i).RenderColor);
+		}
+		for (int i = 0; i < Data.DrawTextQueue.size(); i++)
+		{
+			//Data.pHud->DrawTextW(Data.DrawTextQueue.at(i).RenderText, Data.DrawTextQueue.at(i).RenderColor, Data.DrawTextQueue.at(i).ScreenPosition.X, Data.DrawTextQueue.at(i).ScreenPosition.Y, Data.DrawTextQueue.at(i).RenderFont, 1, false);
+			canvas->K2_DrawText(Data.DrawTextQueue.at(i).RenderFont, Data.DrawTextQueue.at(i).RenderText, Data.DrawTextQueue.at(i).ScreenPosition, Data.DrawTextQueue.at(i).RenderColor, Data.DrawTextQueue.at(i).Kerning, Data.DrawTextQueue.at(i).ShadowColor, Data.DrawTextQueue.at(i).ShadowOffset, Data.DrawTextQueue.at(i).bCentreX, Data.DrawTextQueue.at(i).bCentreY, Data.DrawTextQueue.at(i).bOutlined, Data.DrawTextQueue.at(i).OutlineColor);
+		}
+		//dont put any logic here, will cause crashes
 	}
 	catch (std::exception e) {
 	}

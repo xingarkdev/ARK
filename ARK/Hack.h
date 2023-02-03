@@ -546,6 +546,7 @@ struct DataStruct
 	CG::UFont* defaultFont = nullptr;
 	CG::AShooterPlayerController* pCtr = nullptr;
 	CG::AHUD* pHud = nullptr;
+	CG::ACharacter* aChar = nullptr;
 	CG::TArray<CG::AActor*> primalChars{};
 	CG::AShooterCharacter* localPlayer = nullptr;
 	CG::AShooterCharacter* AimbotTarget;
@@ -584,11 +585,15 @@ struct DataStruct
 		bool containerESP = false;
 		bool DrawCrosshair = false;
 		//Rocket Turret
-		bool rocketTurret = true;
+		bool rocketTurret = false;
 		int streamHotkey = 0x1;
 		int burstTurret = 0x2;
 
 		//Misc
+		bool aCharTesting = false;
+		bool Chests = false;
+		bool Slots = false;
+		int FlyKey = 0x70;
 		bool useNotes = false;
 		bool createChar = false;
 		bool ghostMode = false;
@@ -596,6 +601,9 @@ struct DataStruct
 		bool infiniteOrbit = true;
 		bool instantTurn = true;
 		bool longArm = false;
+		//Speed
+		bool RunningModifier = false;
+		//
 		bool Fly = true;
 		bool speedHacks = true;
 		bool startFly = false;
@@ -757,7 +765,7 @@ float calcDistance(int x1, int y1, int x2, int y2)
 	return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2) * 1.0);
 }
 
-//menu is pasted from https://discord.gg/rG86p3e5fr
+
 void RenderMenu(ID3D11Device* Device) {
 	ImGuiStyle& style = ImGui::GetStyle();
 
@@ -800,7 +808,7 @@ void RenderMenu(ID3D11Device* Device) {
 		//->AddCircleFilled(pos + ImVec2(35, 433), 16.f, ImColor(0, 0, 0, 50), 60.f);
 		//draw->AddCircle(pos + ImVec2(35, 433), 17.f, ImColor(255, 255, 255, 15), 60.f);
 
-		draw->AddText(pos + ImVec2(580, 20), ImColor(255, 255, 255, 255), "xingark.xyz");
+		draw->AddText(pos + ImVec2(580, 20), ImColor(255, 255, 255, 255), "Xing");
 
 		ImGui::AddShadow(ImVec2(0, 0), ImVec2(680, 470), 20, 4, 7, 2, 20, ImColor(0, 0, 0));
 
@@ -821,10 +829,7 @@ void RenderMenu(ID3D11Device* Device) {
 		{
 			if (ImGui::group("3D", 0 == legit_group_count))
 				legit_group_count = 0;
-			ImGui::SameLine();
-			if (ImGui::group("2D", 1 == legit_group_count))
-				legit_group_count = 1;
-
+			
 			//3D visuals
 			if (legit_group_count == 0)
 			{
@@ -845,11 +850,7 @@ void RenderMenu(ID3D11Device* Device) {
 
 				ImGui::EndChild();
 			}
-			//2D visuals
-			else if (legit_group_count == 1)
-			{
-
-			}
+			
 
 		}
 		//weapon hacks
@@ -895,15 +896,18 @@ void RenderMenu(ID3D11Device* Device) {
 			//ImGui::Checkbox("Auto Armor", &Data.Settings.autoArmor);
 			//ImGui::SliderFloat("Auto Armor Threshold", &Data.Settings.autoArmorPercent, 0, 1);
 
-			Data.Settings.startFly = ImGui::Checkbox("GCM Fly", &Data.Settings.Fly);
-
-			ImGui::Checkbox("Infinite Orbit", &Data.Settings.infiniteOrbit);
-			ImGui::Checkbox("Crosshair", &Data.Settings.DrawCrosshair);
-
+			//Data.Settings.startFly = ImGui::Checkbox("GCM Fly", &Data.Settings.Fly);
 			ImGui::Checkbox("Rocket Turret", &Data.Settings.rocketTurret);
+			
+			//ImGui::Checkbox("Crosshair", &Data.Settings.DrawCrosshair);
 
+			ImGui::Separator();
+			ImGui::Checkbox("Infinite Orbit", &Data.Settings.infiniteOrbit);
 			ImGui::Checkbox("Instant Turn", &Data.Settings.instantTurn);
 			ImGui::Checkbox("Long Arm", &Data.Settings.longArm);
+			ImGui::Checkbox("No Blackbox", &Data.Settings.Slots);
+		//mGui::Checkbox("Ghost Mode", &Data.Settings.aCharTesting);
+			ImGui::Checkbox("Running Modifier x10", &Data.Settings.RunningModifier);
 
 			ImGui::EndChild();
 
