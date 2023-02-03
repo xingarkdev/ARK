@@ -316,33 +316,47 @@ void MainThread()
 			//long arm
 			if (Data.Settings.longArm && Data.localPlayer)
 			{
+				Data.localPlayer->ControlledInventoryAccessDistanceOffset = 200;
 				Data.localPlayer->AdditionalMaxUseDistance = 25000000;
 				
 			}
+
+
+			if (Data.Settings.RunningModifier && Data.localPlayer)
+
+			{
+
+				Data.localPlayer->bOverrideWalkingVelocity = true;
+				Data.localPlayer->RunningSpeedModifier = 30;
+				
+			}
+			
 			
 
 
 			//Infinite Slots
-			if (Data.Settings.Slots)
+			if (Data.Settings.Slots && Data.localPlayer)
 			{
+				
 				Data.localPlayer->bIsAtMaxInventoryItems = false;
 			}
 
 			
 			//aChar Testing (Function and Pointer Testing) 
-			if (Data.Settings.aCharTesting)
-
-				static CG::ACharacter* fly = (CG::ACharacter*)Data.pCtr->GetPlayerCharacter();
-
-				{
-
+			
+			if (Data.Settings.aCharTesting && Data.aChar)
 				
-
+				
+				
+				{
+				
+				Data.aChar->ClientCheatGhost();
+				
 				
 				}
 			
 
-		
+		     
 			
 
 			//rapid fire
