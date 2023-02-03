@@ -48,6 +48,7 @@ void MainThread();
 void hkPostRender(CG::UShooterGameViewportClient* viewport, CG::UCanvas* canvas);
 HRESULT hkPresentFunc(IDXGISwapChain* SwapChain, UINT SyncInterval, UINT Flags);
 CG::FVector* hkAdjustedAim(CG::AShooterWeapon* Weapon, CG::FVector* Result);
+void hkGetPlayerViewPoint(CG::AShooterPlayerController* This, CG::FVector* out_Location, CG::FRotator* out_Rotation, __int64 ForAiming);
 
 void HookInput();
 void RemoveInput();
@@ -533,7 +534,8 @@ bool KeyBind(int* k, std::vector<KeyInfo>* keys, const ImVec2& size_arg = ImVec2
 struct DataStruct
 {
 	void(*OriginalPostRender)(CG::UShooterGameViewportClient* viewport, CG::UCanvas* canvas);
-	CG::FVector* (*OriginalhkAdjustedAim) (CG::AShooterWeapon*, CG::FVector*);
+	CG::FVector* (*OriginalGetAdjustedAim) (CG::AShooterWeapon*, CG::FVector*);
+	void (*OriginalGetPlayerViewPoint) (CG::AShooterPlayerController* This, CG::FVector* out_Location, CG::FRotator* out_Rotation, __int64 ForAiming);
 
 	CG::UKismetMathLibrary* mathLib = nullptr;
 

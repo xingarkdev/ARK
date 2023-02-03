@@ -293,6 +293,12 @@ namespace CG
 
 			return (X * v.X + Y * v.Y + Z * v.Z);
 		}
+		//FVector(float x, float y, float z) { X = x; Y = y; Z = z; };
+
+		FVector() : X(0.f), Y(0.f), Z(0.f) {}
+		FVector(float floats[4]) : X(floats[0]), Y(floats[1]), Z(floats[2]) {}
+		FVector(float x, float y, float z) : X(x), Y(y), Z(z) {}
+
 		FVector operator+(const FVector& other) const { return FVector(X + other.X, Y + other.Y, Z + other.Z); }
 
 		FVector operator-(const FVector& other) const { return FVector(X - other.X, Y - other.Y, Z - other.Z); }
@@ -462,6 +468,7 @@ namespace CG
 	public:
 		float                                                      X;                                                       // 0x0000(0x0004) Edit, BlueprintVisible, ZeroConstructor, SaveGame, IsPlainOldData, NoDestructor
 		float                                                      Y;                                                       // 0x0004(0x0004) Edit, BlueprintVisible, ZeroConstructor, SaveGame, IsPlainOldData, NoDestructor
+	
 	};
 
 	/**

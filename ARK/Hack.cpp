@@ -12,7 +12,10 @@ void InitCheat()
 	SetHook((void*)PatternScan((uintptr_t)GetModuleHandle(NULL), "E9 ? ? ? ? CC CC CC CC CC CC CC CC CC CC CC 40 56 41 54"), hkPostRender, reinterpret_cast<PVOID*>(Data.OriginalPostRender));
 
 	//Hook AdjAim
-	SetHook((void*)PatternScan((uintptr_t)GetModuleHandle(NULL), "48 89 5C 24 ? 48 89 74 24 ? 48 89 7C 24 ? 4C 89 74 24 ? 55 48 8B EC 48 83 EC 60 48 8B B9 ? ? ? ?"), hkAdjustedAim, reinterpret_cast<PVOID*>(&Data.OriginalhkAdjustedAim));
+	SetHook((void*)PatternScan((uintptr_t)GetModuleHandle(NULL), "48 89 5C 24 ? 48 89 74 24 ? 48 89 7C 24 ? 4C 89 74 24 ? 55 48 8B EC 48 83 EC 60 48 8B B9 ? ? ? ?"), hkAdjustedAim, reinterpret_cast<PVOID*>(&Data.OriginalGetAdjustedAim));
+	
+	SetHook((void*)(PatternScan((uintptr_t)GetModuleHandle(NULL), "48 89 5C 24 ? 48 89 6C 24 ? 56 48 83 EC 30 48 8B D9")), hkGetPlayerViewPoint, reinterpret_cast<PVOID*>(&Data.OriginalGetPlayerViewPoint));
+	//SetHook((void*)(PatternScan((uintptr_t)GetModuleHandle(NULL), "48 8B 01 45 33 C9 48 FF A0 B8 19 00 00")), hkGetPlayerViewPoint, reinterpret_cast<PVOID*>(&Data.OriginalGetPlayerViewPoint));
 
 	//hook d3d
 	D3D.PresentFunc = GetD3D11PresentFunction();
@@ -40,6 +43,7 @@ void MainThread()
 	if (!pWorld->OwningGameInstance) return;
 	if (!pWorld->OwningGameInstance->LocalPlayers[0]) return;
 	Data.pCtr = reinterpret_cast<CG::AShooterPlayerController*>(pWorld->OwningGameInstance->LocalPlayers[0]->PlayerController);
+	//Data.pCtr = reinterpret_cast<CG::AShooterPlayerController*>(gameplayStatics->STATIC_GetPlayerController(pWorld, 0));
 	if (Data.pCtr && !Data.pHud) { Data.pHud = Data.pCtr->GetHUD(); };
 	if (!Data.pHud || !Data.pCtr || !Data.drawCanvas) return;
 	//Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, str1, {500, 500}, {1, 0, 0, 1}, 1.0f, Data.Settings.shadowColor, {1, 1}, true, true, true, Data.Settings.shadowColor));
@@ -75,10 +79,10 @@ void MainThread()
 				auto* player = reinterpret_cast<CG::AShooterCharacter*>(Data.primalChars[p]);
 
 				CG::FVector2D PlayerScreenLocation{};
-
+				
 				if (player->IsLocallyControlled()) Data.localPlayer = player;
 				else if (Data.pCtr->PlayerCameraManager && W2S(player->RootComponent->GetWorldLocation(), PlayerScreenLocation))
-				//else if (Data.pCtr->ProjectWorldLocationToScreen(player->K2_GetRootComponent()->GetWorldLocation(), &PlayerScreenLocation))
+				//else if (Data.pCtr->ProjectWorldLocationToScreen(player->RootComponent->GetWorldLocation(), &PlayerScreenLocation))
 				{
 					if (Data.Settings.playerESP)
 					{
@@ -97,11 +101,12 @@ void MainThread()
 						//else DrawTextWithShadow(canvas, Data.defaultFont, CG::FString(L"No Tribe"), { PlayerScreenLocation.X,PlayerScreenLocation.Y + 15 }, renderColor, 1.0f, Data.Settings.shadowColor, { 1, 1 }, true, true, true, Data.Settings.shadowColor);
 
 						//weight
-						wchar_t str1[32];
+						wchar_t str1[32] = L"";
 						wchar_t* str = (wchar_t*)L" Weight";
 						_itow((int)player->ReplicatedWeight, str1, 10);
 						wcscat(str1, str);
 						Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, str1, { PlayerScreenLocation.X,PlayerScreenLocation.Y + 20 }, renderColor, 1.0f, Data.Settings.shadowColor, { 1, 1 }, true, true, true, Data.Settings.shadowColor));
+
 						//Data.DrawTextQueue.push_back(DrawTextData(Data.defaultFont, (L""s + std::to_wstring((int)player->ReplicatedWeight)).c_str(), {PlayerScreenLocation.X,PlayerScreenLocation.Y + 20}, renderColor, 1.0f, Data.Settings.shadowColor, {1, 1}, true, true, true, Data.Settings.shadowColor));
 
 						//hp bar
@@ -130,22 +135,6 @@ void MainThread()
 			//else DrawTextWithShadow(canvas, Cache.defaultFont, CG::FString((L"["s + std::to_wstring(Cache.totalEnemies) + L" Enemies in range]"s).c_str()), { 960, 200 }, Cache.Settings.enemyPlayerColor, 1.0f, Cache.Settings.shadowColor, { 1, 1 }, true, true, true, Cache.Settings.shadowColor);
 			//Cache.totalEnemies = 0;
 
-			//aimbot
-			try {
-				if (Data.KeyboardInfo.at(Data.Settings.aimKey).KeyState && Data.AimbotTarget && Data.Settings.aimbot)
-				{
-					CG::FVector BoneLocation;
-					BoneLocation = Data.AimbotTarget->Mesh->GetSocketLocation(Data.AimbotTarget->Mesh->GetBoneName(Data.aimedBone));
-					Data.pCtr->ControlRotation = Data.mathLib->STATIC_FindLookAtRotation(Data.pCtr->PlayerCameraManager->GetCameraLocation(), BoneLocation);
-					//Cache.pCtr->ClientIgnoreLookInput(true);
-				}
-				else
-				{
-					//Cache.pCtr->ClientIgnoreLookInput(false);
-				}
-			}
-			catch (std::out_of_range e) {
-			}
 
 
 			//rocket hack
@@ -370,10 +359,42 @@ CG::FVector* hkAdjustedAim(CG::AShooterWeapon* Weapon, CG::FVector* Result) {
 		BoneLocation = Data.AimbotTarget->Mesh->GetSocketLocation(Data.AimbotTarget->Mesh->GetBoneName(Data.aimedBone));
 		CG::FVector AimDirection = Data.mathLib->STATIC_GetDirectionVector(Data.pCtr->PlayerCameraManager->GetCameraLocation(), BoneLocation);
 		*Result = AimDirection;
-		if (!Result->X || !Result->Y || !Result->Z) return Data.OriginalhkAdjustedAim(Weapon, Result);
+		if (!Result->X || !Result->Y || !Result->Z) return Data.OriginalGetAdjustedAim(Weapon, Result);
 		return Result;
 	}
-	return Data.OriginalhkAdjustedAim(Weapon, Result);
+	return Data.OriginalGetAdjustedAim(Weapon, Result);
+}
+
+void hkGetPlayerViewPoint(CG::AShooterPlayerController* This, CG::FVector* out_Location, CG::FRotator* out_Rotation, __int64 ForAiming)
+{
+	static CG::AShooterCharacter* target = nullptr;
+	if (!Data.Settings.panicMode)
+	{
+		if(Data.AimbotTarget && Data.Settings.aimbot) 
+		{
+			//aimbot
+			try {
+				if (Data.KeyboardInfo.at(Data.Settings.aimKey).KeyState)
+				{
+					if(!target) target = Data.AimbotTarget;
+					CG::FVector BoneLocation;
+					BoneLocation = target->Mesh->GetSocketLocation(target->Mesh->GetBoneName(Data.aimedBone));
+					CG::FVector location = Data.pCtr->PlayerCameraManager->GetCameraLocation();
+					CG::FRotator rotator = Data.mathLib->STATIC_FindLookAtRotation(location, BoneLocation);
+					Data.pCtr->ControlRotation = rotator;
+					*out_Rotation = rotator;
+					*out_Location = location;
+				}
+				else
+				{
+					target = nullptr;
+				}
+			}
+			catch (std::out_of_range e) {
+			}
+		}
+	}
+	else Data.OriginalGetPlayerViewPoint(This, out_Location, out_Rotation, ForAiming);
 }
 
 void hkPostRender(CG::UShooterGameViewportClient* viewport, CG::UCanvas* canvas)
